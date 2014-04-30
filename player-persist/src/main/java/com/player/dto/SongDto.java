@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Mykola_Zalyayev
  */
 @Entity
-@Table(name = "SONG", schema = "testdb")
+@Table(name = "SONG")
 public class SongDto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

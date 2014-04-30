@@ -23,6 +23,7 @@ public class SongConverter {
 
         AlbumDto albumDto = new AlbumDto();
         albumDto.setName(song.getAlbumName());
+        albumDto.setYear(song.getYear());
         songDto.setArtistDto(artistDto);
 
         GenreDto genreDto = new GenreDto();
@@ -45,6 +46,7 @@ public class SongConverter {
         AlbumDto albumDto = songDto.getAlbumDto();
         if (albumDto != null) {
             song.setAlbumName(albumDto.getName());
+            song.setYear(albumDto.getYear());
         }
 
         GenreDto genreDto = songDto.getGenreDto();

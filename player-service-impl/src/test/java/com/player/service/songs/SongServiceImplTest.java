@@ -45,7 +45,7 @@ public class SongServiceImplTest {
 
         Metadata metadata = new Metadata();
         metadata.set("title", "Invaders Must Die");
-        metadata.set("xmpDM:tracknumber", "1");
+        metadata.set("xmpDM:trackNumber", "1");
         when(helper.getMetadataFromSong(stream)).thenReturn(metadata);
 
         Song expectedSong = new Song();

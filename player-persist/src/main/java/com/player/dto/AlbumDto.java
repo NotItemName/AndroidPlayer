@@ -17,6 +17,9 @@ public class AlbumDto implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    @Column(name = "YEAR")
+    private Integer year;
+
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "albumDto")
     private Set<SongDto> songs;
 
@@ -38,6 +41,14 @@ public class AlbumDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public Set<SongDto> getSongs() {

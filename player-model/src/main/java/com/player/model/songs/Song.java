@@ -21,6 +21,8 @@ public class Song {
 
     private Integer trackNumber;
 
+    private Integer year;
+
     @XmlElement(name = "id")
     public Integer getId() {
         return id;
@@ -73,6 +75,15 @@ public class Song {
 
     public void setTrackNumber(Integer trackNumber) {
         this.trackNumber = trackNumber;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    @XmlElement(name = "year")
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     @Override

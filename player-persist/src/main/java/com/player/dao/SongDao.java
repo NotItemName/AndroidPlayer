@@ -1,6 +1,7 @@
-package com.player.dao.songs;
+package com.player.dao;
 
 import com.player.dto.SongDto;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,14 @@ public class SongDao {
         session.save(song);
 
         return song;
+    }
+
+    public boolean checkSongExist(String fileName) {
+        String hql = "from SongDto where fileName = :fileName";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hql);
+        query.setString("fileName", fileName);
+        SongDto dto = (SongDto) query.uniqueResult();
+        return dto != null;
     }
 }

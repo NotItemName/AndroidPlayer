@@ -10,5 +10,7 @@ import java.io.InputStream;
  */
 public interface SongService {
 
-    public Song addSong(InputStream song) throws IOException;
+    public Song addSong(InputStream song, String fileName) throws IOException;
+
+    public boolean checkSongExist(String fileName);
 }

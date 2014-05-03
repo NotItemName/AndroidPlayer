@@ -1,7 +1,7 @@
 package com.player.service.songs;
 
-import com.player.dao.artists.ArtistDao;
-import com.player.dao.songs.SongDao;
+import com.player.dao.ArtistDao;
+import com.player.dao.SongDao;
 import com.player.dto.ArtistDto;
 import com.player.dto.SongDto;
 import com.player.model.songs.Song;
@@ -56,7 +56,7 @@ public class SongServiceImplTest {
 
         when(artistDao.addArtist(any(ArtistDto.class))).thenReturn(new ArtistDto());
 
-        Song actualSong = service.addSong(stream);
+        Song actualSong = service.addSong(stream, "testFile.flac");
 
 
         assertEquals(expectedSong, actualSong);

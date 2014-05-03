@@ -19,6 +19,9 @@ public class SongDto implements Serializable {
     @Column(name = "TRACK_NUMBER")
     private Integer trackNumber;
 
+    @Column(name = "FILE_NAME", unique = true)
+    private String fileName;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ARTIST_ID")
     private ArtistDto artistDto;
@@ -55,6 +58,14 @@ public class SongDto implements Serializable {
         this.trackNumber = trackNumber;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public ArtistDto getArtistDto() {
         return artistDto;
     }
@@ -86,9 +97,8 @@ public class SongDto implements Serializable {
 
         SongDto songDto = (SongDto) o;
 
-        if (id != null ? !id.equals(songDto.id) : songDto.id != null) return false;
+        return !(id != null ? !id.equals(songDto.id) : songDto.id != null);
 
-        return true;
     }
 
     @Override

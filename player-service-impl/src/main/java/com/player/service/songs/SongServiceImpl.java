@@ -1,7 +1,9 @@
 package com.player.service.songs;
 
-import com.player.dao.artists.ArtistDao;
-import com.player.dao.songs.SongDao;
+import com.player.dao.AlbumDao;
+import com.player.dao.ArtistDao;
+import com.player.dao.GenreDao;
+import com.player.dao.SongDao;
 import com.player.dto.AlbumDto;
 import com.player.dto.ArtistDto;
 import com.player.dto.GenreDto;
@@ -34,25 +36,50 @@ public class SongServiceImpl implements SongService {
     @Autowired
     private ArtistDao artistDao;
 
+    @Autowired
+    private AlbumDao albumDao;
+
+    @Autowired
+    private GenreDao genreDao;
+
     @Override
     @Transactional
-    public Song addSong(InputStream stream) throws IOException {
+    public Song addSong(InputStream stream, String fileName) throws IOException {
         Metadata audioMetadata = helper.getMetadataFromSong(stream);
 
+        if (audioMetadata == null) {
+            return null;
+        }
+
         ArtistDto artistDto = convertArtistFromMetadata(audioMetadata);
-        artistDao.addArtist(artistDto);
+        if (artistDto != null) {
+            artistDto = artistDao.addArtist(artistDto);
+        }
 
         AlbumDto albumDto = convertAlbumFromMetadata(audioMetadata);
-        albumDto.setArtistDto(artistDto);
+        if (albumDto != null) {
+            albumDto = albumDao.addAlbum(albumDto);
+            albumDto.setArtistDto(artistDto);
+        }
 
         GenreDto genreDto = convertGenreFromMetadata(audioMetadata);
+        if (genreDto != null) {
+            genreDto = genreDao.addGenre(genreDto);
+        }
 
         SongDto songDto = convertSongFromMetadata(audioMetadata);
         songDto.setArtistDto(artistDto);
         songDto.setAlbumDto(albumDto);
         songDto.setGenreDto(genreDto);
+        songDto.setFileName(fileName);
 
         return convert(songDao.addSong(songDto));
+    }
+
+    @Override
+    @Transactional
+    public boolean checkSongExist(String fileName) {
+        return songDao.checkSongExist(fileName);
     }
 
     private SongDto convertSongFromMetadata(Metadata metadata) {

@@ -31,7 +31,7 @@ public class SongHelper {
             parser.parse(bufferedInputStream, handler, metadata, parseCtx);
             input.close();
         } catch (SAXException | TikaException e) {
-            e.printStackTrace();
+            return null;
         }
 
         return metadata;

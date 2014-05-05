@@ -7,11 +7,10 @@
     <parent>
         <groupId>com.player</groupId>
         <artifactId>player</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${build.version}</version>
     </parent>
 
-    <artifactId>player-server</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>player-web</artifactId>
 
     <packaging>war</packaging>
 
@@ -27,7 +26,7 @@
         <dependency>
             <groupId>com.player</groupId>
             <artifactId>player-service-impl</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${build.version}</version>
         </dependency>
 
         <dependency>

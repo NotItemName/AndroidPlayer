@@ -1,6 +1,7 @@
 package com.player.service.songs;
 
 import com.player.model.songs.Song;
+import com.player.model.songs.Songs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +11,11 @@ import java.io.InputStream;
  */
 public interface SongService {
 
-    public Song addSong(InputStream song, String fileName) throws IOException;
+    Song addSong(InputStream song, String fileName) throws IOException;
 
-    public boolean checkSongExist(String fileName);
+    boolean checkSongExist(String fileName);
+
+    String getFileName(Integer id);
+
+    Songs getAllSongs();
 }

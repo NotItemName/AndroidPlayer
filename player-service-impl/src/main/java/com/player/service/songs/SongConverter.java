@@ -6,6 +6,9 @@ import com.player.dto.GenreDto;
 import com.player.dto.SongDto;
 import com.player.model.songs.Song;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Mykola_Zalyayev
  */
@@ -54,5 +57,13 @@ public class SongConverter {
             song.setGenre(genreDto.getName());
         }
         return song;
+    }
+
+    public static List<Song> convertList(List<SongDto> songDtos) {
+        List<Song> songs = new ArrayList<>();
+        for (SongDto songDto : songDtos) {
+            songs.add(convert(songDto));
+        }
+        return songs;
     }
 }

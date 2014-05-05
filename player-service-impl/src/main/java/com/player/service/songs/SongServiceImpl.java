@@ -9,6 +9,7 @@ import com.player.dto.ArtistDto;
 import com.player.dto.GenreDto;
 import com.player.dto.SongDto;
 import com.player.model.songs.Song;
+import com.player.model.songs.Songs;
 import org.apache.tika.metadata.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static com.player.service.songs.SongConverter.convert;
+import static com.player.service.songs.SongConverter.convertList;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 
@@ -81,6 +83,21 @@ public class SongServiceImpl implements SongService {
     public boolean checkSongExist(String fileName) {
         return songDao.checkSongExist(fileName);
     }
+
+    @Override
+    @Transactional
+    public String getFileName(Integer id) {
+        return songDao.getFileName(id);
+    }
+
+    @Override
+    @Transactional
+    public Songs getAllSongs() {
+        Songs songs = new Songs();
+        songs.setSongs(convertList(songDao.getAllSongs()));
+        return songs;
+    }
+
 
     private SongDto convertSongFromMetadata(Metadata metadata) {
         SongDto songDto = new SongDto();

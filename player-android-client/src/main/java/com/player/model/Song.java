@@ -1,4 +1,4 @@
-package com.player.model.songs;
+package com.player.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -93,8 +93,9 @@ public class Song {
 
         Song song = (Song) o;
 
-        return id.equals(song.id);
+        if (!id.equals(song.id)) return false;
 
+        return true;
     }
 
     @Override

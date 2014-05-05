@@ -1,20 +1,22 @@
 package com.player.controller;
 
 import com.player.model.songs.Song;
+import com.player.model.songs.Songs;
 import com.player.service.songs.SongService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -53,6 +55,26 @@ public class SongController {
             file.delete();
         }
         return songEntity;
+    }
+
+    @RequestMapping(value = "/export/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody
+    public FileSystemResource downloadDocument(@PathVariable Integer id, HttpServletRequest request,
+                                               HttpServletResponse response) throws IOException {
+
+        String fileName = songService.getFileName(id);
+
+        //set the default file name to be saved by user.
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + "");
+        return new FileSystemResource(new File(fileDirectory, fileName));
+
+    }
+
+    @RequestMapping(value = "/songs", method = RequestMethod.GET)
+    @ResponseBody
+    public Songs getAllSongs() {
+        return songService.getAllSongs();
     }
 
     @PostConstruct

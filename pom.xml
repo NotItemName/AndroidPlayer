@@ -6,13 +6,14 @@
 
     <groupId>com.player</groupId>
     <artifactId>player</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${build.version}</version>
     <modules>
         <module>player-model</module>
         <module>player-persist</module>
-        <module>player-server</module>
+        <module>player-web</module>
         <module>player-service-impl</module>
         <module>player-service</module>
+        <module>player-android-client</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -21,6 +22,7 @@
         <cglib.version>2.2.2</cglib.version>
         <servlet.version>3.0.1</servlet.version>
         <junit.version>4.10</junit.version>
+        <build.version>1.0-SNAPSHOT</build.version>
     </properties>
 
 

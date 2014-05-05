@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Mykola_Zalyayev
  */
@@ -30,5 +32,18 @@ public class SongDao {
         query.setString("fileName", fileName);
         SongDto dto = (SongDto) query.uniqueResult();
         return dto != null;
+    }
+
+    public String getFileName(Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        SongDto songDto = (SongDto) session.get(SongDto.class, id);
+        return songDto.getFileName();
+    }
+
+    public List<SongDto> getAllSongs() {
+        String hql = "from SongDto";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hql);
+        return query.list();
     }
 }

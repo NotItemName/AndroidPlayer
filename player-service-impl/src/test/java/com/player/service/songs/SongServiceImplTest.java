@@ -1,7 +1,9 @@
 package com.player.service.songs;
 
+import com.player.dao.AlbumDao;
 import com.player.dao.ArtistDao;
 import com.player.dao.SongDao;
+import com.player.dto.AlbumDto;
 import com.player.dto.ArtistDto;
 import com.player.dto.SongDto;
 import com.player.model.songs.Song;
@@ -33,6 +35,9 @@ public class SongServiceImplTest {
     @Mock
     private ArtistDao artistDao;
 
+    @Mock
+    private AlbumDao albumDao;
+
     @Before
     public void init() {
         initMocks(this);
@@ -46,6 +51,7 @@ public class SongServiceImplTest {
         Metadata metadata = new Metadata();
         metadata.set("title", "Invaders Must Die");
         metadata.set("xmpDM:trackNumber", "1");
+        metadata.set("xmpDM:artist","Prodigy");
         when(helper.getMetadataFromSong(stream)).thenReturn(metadata);
 
         Song expectedSong = new Song();
@@ -56,13 +62,25 @@ public class SongServiceImplTest {
 
         when(artistDao.addArtist(any(ArtistDto.class))).thenReturn(new ArtistDto());
 
+        when(albumDao.addAlbum(any(AlbumDto.class))).thenReturn(new AlbumDto());
+
         Song actualSong = service.addSong(stream, "testFile.flac");
 
 
         assertEquals(expectedSong, actualSong);
 
         verify(helper, times(1)).getMetadataFromSong(stream);
-        verify(songDao, times(1)).addSong(any(SongDto.class));
-        verify(artistDao, times(1)).addArtist(any(ArtistDto.class));
+
+        SongDto songDto = new SongDto();
+        songDto.setName("Invaders Must Die");
+        songDto.setTrackNumber(1);
+
+        verify(songDao, times(1)).addSong(songDto);
+        ArtistDto artistDto = new ArtistDto();
+        artistDto.setName("Prodigy");
+
+        verify(artistDao, times(1)).addArtist(artistDto);
+
+        verify(albumDao,times(1)).addAlbum(new AlbumDto());
     }
 }

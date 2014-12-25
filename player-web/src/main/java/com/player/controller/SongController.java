@@ -77,8 +77,8 @@ public class SongController {
         return songService.getAllSongs();
     }
 
-    @PostConstruct
-    @Scheduled(cron = "45 10 * * *")
+//    @PostConstruct
+//    @Scheduled(cron = "45 10 * * *")
     public void updateSongs() throws IOException {
         StopWatch watch = new StopWatch();
         watch.start();

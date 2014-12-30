@@ -1,38 +1,32 @@
 package com.player.dao;
 
 import com.player.dto.AlbumDto;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.player.dto.ArtistDto;
+import com.player.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 /**
- * @author Николай
+ * @author Mykola_Zalyayev
  */
-@Repository
+@Component
 public class AlbumDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private AlbumRepository repository;
 
-    public AlbumDto addAlbum(AlbumDto album) {
-        Session session = sessionFactory.getCurrentSession();
-
-        AlbumDto albumDto = getArtistByName(album);
-        if (albumDto != null) {
-            return albumDto;
+    public AlbumDto save(AlbumDto dto) {
+        String name = dto.getName();
+        if (name == null) {
+            return null;
         }
+        ArtistDto artistDto = dto.getArtistDto();
+        String artistName = artistDto == null ? null : artistDto.getName();
 
-        session.save(album);
-        return album;
-    }
-
-    public AlbumDto getArtistByName(AlbumDto entity) {
-        String hql = "from AlbumDto where name = :name";
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(hql);
-        query.setString("name", entity.getName());
-        return (AlbumDto) query.uniqueResult();
+        AlbumDto readAlbum = repository.findByNameAndArtistDto_Name(dto.getName(), artistName);
+        if (readAlbum == null) {
+            return repository.save(dto);
+        }
+        return readAlbum;
     }
 }

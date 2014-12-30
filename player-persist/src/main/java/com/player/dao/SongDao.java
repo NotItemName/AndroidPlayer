@@ -1,49 +1,49 @@
 package com.player.dao;
 
+import com.player.dto.AlbumDto;
+import com.player.dto.ArtistDto;
 import com.player.dto.SongDto;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.player.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Mykola_Zalyayev
  */
-@Repository
+@Component
 public class SongDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private SongRepository repository;
 
-    public SongDto addSong(SongDto song) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(song);
 
-        return song;
+    public SongDto save(SongDto dto) {
+        String name = dto.getName();
+        AlbumDto albumDto = dto.getAlbumDto();
+        String album = albumDto == null ? null : albumDto.getName();
+        ArtistDto artistDto = dto.getArtistDto();
+        String artist = artistDto == null ? null : artistDto.getName();
+
+        if (name == null) {
+            return null;
+        }
+        SongDto readSong = repository.findByNameAndAlbumDto_NameAndArtistDto_Name(name, album, artist);
+        if (readSong == null) {
+            return repository.save(dto);
+        }
+
+        return readSong;
     }
 
-    public boolean checkSongExist(String fileName) {
-        String hql = "from SongDto where fileName = :fileName";
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(hql);
-        query.setString("fileName", fileName);
-        SongDto dto = (SongDto) query.uniqueResult();
-        return dto != null;
+    public SongDto findByFileName(String fileName) {
+        return repository.findByFileName(fileName);
     }
 
-    public String getFileName(Integer id) {
-        Session session = sessionFactory.getCurrentSession();
-        SongDto songDto = (SongDto) session.get(SongDto.class, id);
-        return songDto.getFileName();
+    public SongDto findOne(Integer id) {
+        return repository.findOne(id);
     }
 
-    public List<SongDto> getAllSongs() {
-        String hql = "from SongDto";
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(hql);
-        return query.list();
+    public Iterable<SongDto> findAll() {
+        return repository.findAll();
     }
 }

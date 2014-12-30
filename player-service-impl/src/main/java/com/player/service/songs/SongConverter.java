@@ -59,7 +59,7 @@ public class SongConverter {
         return song;
     }
 
-    public static List<Song> convertList(List<SongDto> songDtos) {
+    public static List<Song> convertList(Iterable<SongDto> songDtos) {
         List<Song> songs = new ArrayList<>();
         for (SongDto songDto : songDtos) {
             songs.add(convert(songDto));

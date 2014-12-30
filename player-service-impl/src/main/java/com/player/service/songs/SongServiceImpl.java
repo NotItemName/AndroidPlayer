@@ -42,7 +42,7 @@ public class SongServiceImpl implements SongService {
     private AlbumDao albumDao;
 
     @Autowired
-    private GenreDao genreDao;
+    private GenreDao genredao;
 
     @Override
     @Transactional
@@ -53,48 +53,45 @@ public class SongServiceImpl implements SongService {
             return null;
         }
 
+        SongDto songDto = convertSongFromMetadata(audioMetadata);
+
         ArtistDto artistDto = convertArtistFromMetadata(audioMetadata);
-        if (artistDto != null) {
-            artistDto = artistDao.addArtist(artistDto);
-        }
+        artistDto = artistDao.save(artistDto);
+        songDto.setArtistDto(artistDto);
+
 
         AlbumDto albumDto = convertAlbumFromMetadata(audioMetadata);
-        if (albumDto != null) {
-            albumDto = albumDao.addAlbum(albumDto);
-            albumDto.setArtistDto(artistDto);
-        }
+        albumDto.setArtistDto(artistDto);
+        albumDto = albumDao.save(albumDto);
+        songDto.setAlbumDto(albumDto);
+
 
         GenreDto genreDto = convertGenreFromMetadata(audioMetadata);
-        if (genreDto != null) {
-            genreDto = genreDao.addGenre(genreDto);
-        }
-
-        SongDto songDto = convertSongFromMetadata(audioMetadata);
-        songDto.setArtistDto(artistDto);
-        songDto.setAlbumDto(albumDto);
+        genreDto = genredao.save(genreDto);
         songDto.setGenreDto(genreDto);
+
         songDto.setFileName(fileName);
 
-        return convert(songDao.addSong(songDto));
+        return convert(songDao.save(songDto));
     }
 
     @Override
     @Transactional
     public boolean checkSongExist(String fileName) {
-        return songDao.checkSongExist(fileName);
+        return songDao.findByFileName(fileName) != null;
     }
 
     @Override
     @Transactional
     public String getFileName(Integer id) {
-        return songDao.getFileName(id);
+        return songDao.findOne(id).getFileName();
     }
 
     @Override
     @Transactional
     public Songs getAllSongs() {
         Songs songs = new Songs();
-        songs.setSongs(convertList(songDao.getAllSongs()));
+        songs.setSongs(convertList(songDao.findAll()));
         return songs;
     }
 
@@ -113,10 +110,9 @@ public class SongServiceImpl implements SongService {
     }
 
     private GenreDto convertGenreFromMetadata(Metadata metadata) {
-        GenreDto genreDto = null;
+        GenreDto genreDto = new GenreDto();
         String genre = metadata.get("xmpDM:genre");
         if (isNotBlank(genre)) {
-            genreDto = new GenreDto();
             genreDto.setName(genre);
         }
         return genreDto;
@@ -136,10 +132,9 @@ public class SongServiceImpl implements SongService {
     }
 
     private ArtistDto convertArtistFromMetadata(Metadata metadata) {
-        ArtistDto artistDto = null;
+        ArtistDto artistDto = new ArtistDto();
         String artist = metadata.get("xmpDM:artist");
         if (isNotBlank(artist)) {
-            artistDto = new ArtistDto();
             artistDto.setName(artist);
         }
         return artistDto;

@@ -1,4 +1,4 @@
-package com.player.dto;
+package com.player.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,9 +8,8 @@ import java.util.Set;
  * @author Mykola_Zalyayev
  */
 @Entity
-@Table(name = "ARTIST")
-public class ArtistDto implements Serializable {
-
+@Table(name = "ALBUM")
+public class Album implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -18,11 +17,15 @@ public class ArtistDto implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artistDto")
-    private Set<SongDto> songs;
+    @Column(name = "YEAR")
+    private Integer year;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artistDto")
-    private Set<AlbumDto> albums;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "album")
+    private Set<Song> songs;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ARTIST_ID")
+    private Artist artist;
 
     public Integer getId() {
         return id;
@@ -40,20 +43,28 @@ public class ArtistDto implements Serializable {
         this.name = name;
     }
 
-    public Set<SongDto> getSongs() {
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Set<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<SongDto> songs) {
+    public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
 
-    public Set<AlbumDto> getAlbums() {
-        return albums;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setAlbums(Set<AlbumDto> albums) {
-        this.albums = albums;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     @Override
@@ -61,9 +72,9 @@ public class ArtistDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ArtistDto artistDto = (ArtistDto) o;
+        Album album = (Album) o;
 
-        if (id != null ? !id.equals(artistDto.id) : artistDto.id != null) return false;
+        if (id != null ? !id.equals(album.id) : album.id != null) return false;
 
         return true;
     }

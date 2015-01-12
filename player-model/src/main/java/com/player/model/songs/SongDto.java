@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Mykola_Zalyayev
  */
 @XmlRootElement(name = "song")
-public class Song {
+public class SongDto {
 
     private Integer id;
 
@@ -91,9 +91,9 @@ public class Song {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Song song = (Song) o;
+        SongDto songDto = (SongDto) o;
 
-        return id.equals(song.id);
+        return id.equals(songDto.id);
 
     }
 
@@ -104,7 +104,7 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" +
+        return "SongDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", artistName='" + artistName + '\'' +

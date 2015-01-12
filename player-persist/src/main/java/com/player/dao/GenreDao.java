@@ -1,6 +1,6 @@
 package com.player.dao;
 
-import com.player.dto.GenreDto;
+import com.player.entity.Genre;
 import com.player.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,14 +14,14 @@ public class GenreDao {
     @Autowired
     private GenreRepository repository;
 
-    public GenreDto save(GenreDto dto) {
-        String name = dto.getName();
+    public Genre save(Genre entity) {
+        String name = entity.getName();
         if (name == null) {
             return null;
         }
-        GenreDto readGenre = repository.findByName(name);
+        Genre readGenre = repository.findByName(name);
         if (readGenre == null) {
-            return repository.save(dto);
+            return repository.save(entity);
         }
 
         return readGenre;

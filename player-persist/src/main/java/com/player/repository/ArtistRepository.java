@@ -1,6 +1,6 @@
 package com.player.repository;
 
-import com.player.dto.ArtistDto;
+import com.player.entity.Artist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author Mykola_Zalyayev
  */
 @Component
-public interface ArtistRepository extends CrudRepository<ArtistDto, Integer> {
+public interface ArtistRepository extends CrudRepository<Artist, Integer> {
 
-    ArtistDto findByName(String name);
+    Artist findByName(String name);
 }

@@ -8,9 +8,9 @@
         <property name="show_sql">false</property>
         <property name="hbm2ddl.auto">create</property>
 
-        <mapping class="com.player.dto.AlbumDto"/>
-        <mapping class="com.player.dto.ArtistDto"/>
-        <mapping class="com.player.dto.GenreDto"/>
-        <mapping class="com.player.dto.SongDto"/>
+        <mapping class="com.player.entity.Album"/>
+        <mapping class="com.player.entity.Artist"/>
+        <mapping class="com.player.entity.Genre"/>
+        <mapping class="com.player.entity.Song"/>
     </session-factory>
 </hibernate-configuration>

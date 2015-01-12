@@ -1,4 +1,4 @@
-package com.player.dto;
+package com.player.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,8 +8,9 @@ import java.util.Set;
  * @author Mykola_Zalyayev
  */
 @Entity
-@Table(name = "ALBUM")
-public class AlbumDto implements Serializable {
+@Table(name = "ARTIST")
+public class Artist implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -17,15 +18,11 @@ public class AlbumDto implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "YEAR")
-    private Integer year;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artist")
+    private Set<Song> songs;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "albumDto")
-    private Set<SongDto> songs;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ARTIST_ID")
-    private ArtistDto artistDto;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artist")
+    private Set<Album> albums;
 
     public Integer getId() {
         return id;
@@ -43,28 +40,20 @@ public class AlbumDto implements Serializable {
         this.name = name;
     }
 
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public Set<SongDto> getSongs() {
+    public Set<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<SongDto> songs) {
+    public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
 
-    public ArtistDto getArtistDto() {
-        return artistDto;
+    public Set<Album> getAlbums() {
+        return albums;
     }
 
-    public void setArtistDto(ArtistDto artistDto) {
-        this.artistDto = artistDto;
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
     }
 
     @Override
@@ -72,9 +61,9 @@ public class AlbumDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AlbumDto albumDto = (AlbumDto) o;
+        Artist artist = (Artist) o;
 
-        if (id != null ? !id.equals(albumDto.id) : albumDto.id != null) return false;
+        if (id != null ? !id.equals(artist.id) : artist.id != null) return false;
 
         return true;
     }

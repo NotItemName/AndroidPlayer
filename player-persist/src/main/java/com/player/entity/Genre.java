@@ -1,4 +1,4 @@
-package com.player.dto;
+package com.player.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "GENRE")
-public class GenreDto implements Serializable {
+public class Genre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,14 +18,14 @@ public class GenreDto implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "genreDto")
-    private Set<SongDto> songs;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "genre")
+    private Set<Song> songs;
 
-    public Set<SongDto> getSongs() {
+    public Set<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<SongDto> songs) {
+    public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
 
@@ -50,9 +50,9 @@ public class GenreDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GenreDto genreDto = (GenreDto) o;
+        Genre genre = (Genre) o;
 
-        if (id != null ? !id.equals(genreDto.id) : genreDto.id != null) return false;
+        if (id != null ? !id.equals(genre.id) : genre.id != null) return false;
 
         return true;
     }

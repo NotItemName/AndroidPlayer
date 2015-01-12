@@ -1,10 +1,10 @@
 package com.player.service.songs;
 
-import com.player.dto.AlbumDto;
-import com.player.dto.ArtistDto;
-import com.player.dto.GenreDto;
-import com.player.dto.SongDto;
-import com.player.model.songs.Song;
+import com.player.entity.Album;
+import com.player.entity.Artist;
+import com.player.entity.Genre;
+import com.player.entity.Song;
+import com.player.model.songs.SongDto;
 import com.player.repository.AlbumRepository;
 import com.player.repository.ArtistRepository;
 import com.player.repository.GenreRepository;
@@ -23,7 +23,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class SongServiceImplTest {
+public class SongDtoServiceImplTest {
 
     @InjectMocks
     private SongServiceImpl service;
@@ -59,37 +59,37 @@ public class SongServiceImplTest {
         metadata.set("xmpDM:artist", "Prodigy");
         when(helper.getMetadataFromSong(stream)).thenReturn(metadata);
 
-        Song expectedSong = new Song();
-        expectedSong.setId(1);
-        expectedSong.setName("Invaders Must Die");
+        SongDto expectedSongDto = new SongDto();
+        expectedSongDto.setId(1);
+        expectedSongDto.setName("Invaders Must Die");
 
-        ArtistDto artistDto = new ArtistDto();
-        artistDto.setName("Prodigy");
+        Artist artist = new Artist();
+        artist.setName("Prodigy");
 
-        AlbumDto albumDto = new AlbumDto();
+        Album album = new Album();
 
-        GenreDto genreDto = new GenreDto();
+        Genre genre = new Genre();
 
-        when(songRepository.save(any(SongDto.class))).thenReturn(convert(expectedSong));
-        when(artistRepository.save(artistDto)).thenReturn(artistDto);
-        when(albumRepository.save(albumDto)).thenReturn(albumDto);
-        when(genreRepository.save(genreDto)).thenReturn(genreDto);
+        when(songRepository.save(any(Song.class))).thenReturn(convert(expectedSongDto));
+        when(artistRepository.save(artist)).thenReturn(artist);
+        when(albumRepository.save(album)).thenReturn(album);
+        when(genreRepository.save(genre)).thenReturn(genre);
 
-        Song actualSong = service.addSong(stream, "testFile.flac");
+        SongDto actualSongDto = service.addSong(stream, "testFile.flac");
 
 
-        assertEquals(expectedSong, actualSong);
+        assertEquals(expectedSongDto, actualSongDto);
 
         verify(helper, times(1)).getMetadataFromSong(stream);
 
-        SongDto songDto = new SongDto();
-        songDto.setName("Invaders Must Die");
-        songDto.setTrackNumber(1);
+        Song song = new Song();
+        song.setName("Invaders Must Die");
+        song.setTrackNumber(1);
 
-        verify(songRepository, times(1)).save(songDto);
-        verify(artistRepository, times(1)).save(artistDto);
-        verify(albumRepository, times(1)).save(albumDto);
-        verify(genreRepository, times(1)).save(genreDto);
+        verify(songRepository, times(1)).save(song);
+        verify(artistRepository, times(1)).save(artist);
+        verify(albumRepository, times(1)).save(album);
+        verify(genreRepository, times(1)).save(genre);
 
     }
 }

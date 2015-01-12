@@ -1,11 +1,10 @@
 package com.player.controller;
 
-import com.player.model.songs.Song;
+import com.player.model.songs.SongDto;
 import com.player.model.songs.Songs;
 import com.player.service.songs.SongService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class SongController {
 
     final static Logger LOGGER = Logger.getLogger(SongController.class);
 
-    @Value("${service.songs.directory}")
+    //    @Value("${service.songs.directory}")
     public String fileDirectory;
 
     @Autowired
@@ -39,20 +38,20 @@ public class SongController {
 
     @RequestMapping(value = "/uploadSong", method = RequestMethod.POST)
     @ResponseBody
-    public Song uploadSong(@RequestParam("song") MultipartFile song) throws IOException {
+    public SongDto uploadSong(@RequestParam("song") MultipartFile song) throws IOException {
         InputStream stream = song.getInputStream();
-        Song songEntity = null;
+        SongDto songDtoEntity = null;
         String fileName = null;
         if (checkFileIsSong(song.getOriginalFilename())) {
-            fileName = saveFileOnDisc(song, fileDirectory);
-            songEntity = songService.addSong(stream, fileName);
+            //fileName = saveFileOnDisc(song, fileDirectory);
+            songDtoEntity = songService.addSong(stream, fileName);
         }
 
-        if (songEntity == null && fileName != null) {
+        if (songDtoEntity == null && fileName != null) {
             File file = new File(fileDirectory, fileName);
             file.delete();
         }
-        return songEntity;
+        return songDtoEntity;
     }
 
     @RequestMapping(value = "/export/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

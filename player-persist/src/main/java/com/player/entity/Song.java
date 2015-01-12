@@ -1,4 +1,4 @@
-package com.player.dto;
+package com.player.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "SONG")
-public class SongDto implements Serializable {
+public class Song implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -24,15 +24,15 @@ public class SongDto implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ARTIST_ID")
-    private ArtistDto artistDto;
+    private Artist artist;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ALBUM_ID")
-    private AlbumDto albumDto;
+    private Album album;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "GENRE_ID")
-    private GenreDto genreDto;
+    private Genre genre;
 
     public Integer getId() {
         return id;
@@ -66,28 +66,28 @@ public class SongDto implements Serializable {
         this.fileName = fileName;
     }
 
-    public ArtistDto getArtistDto() {
-        return artistDto;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtistDto(ArtistDto artistDto) {
-        this.artistDto = artistDto;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
-    public AlbumDto getAlbumDto() {
-        return albumDto;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setAlbumDto(AlbumDto albumDto) {
-        this.albumDto = albumDto;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
-    public GenreDto getGenreDto() {
-        return genreDto;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreDto(GenreDto genreDto) {
-        this.genreDto = genreDto;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     @Override
@@ -95,9 +95,9 @@ public class SongDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SongDto songDto = (SongDto) o;
+        Song song = (Song) o;
 
-        return !(id != null ? !id.equals(songDto.id) : songDto.id != null);
+        return !(id != null ? !id.equals(song.id) : song.id != null);
 
     }
 

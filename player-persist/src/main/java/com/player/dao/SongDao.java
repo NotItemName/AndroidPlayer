@@ -1,8 +1,8 @@
 package com.player.dao;
 
-import com.player.dto.AlbumDto;
-import com.player.dto.ArtistDto;
-import com.player.dto.SongDto;
+import com.player.entity.Album;
+import com.player.entity.Artist;
+import com.player.entity.Song;
 import com.player.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,33 +17,33 @@ public class SongDao {
     private SongRepository repository;
 
 
-    public SongDto save(SongDto dto) {
-        String name = dto.getName();
-        AlbumDto albumDto = dto.getAlbumDto();
+    public Song save(Song entity) {
+        String name = entity.getName();
+        Album albumDto = entity.getAlbum();
         String album = albumDto == null ? null : albumDto.getName();
-        ArtistDto artistDto = dto.getArtistDto();
+        Artist artistDto = entity.getArtist();
         String artist = artistDto == null ? null : artistDto.getName();
 
         if (name == null) {
             return null;
         }
-        SongDto readSong = repository.findByNameAndAlbumDto_NameAndArtistDto_Name(name, album, artist);
+        Song readSong = repository.findByNameAndAlbum_NameAndArtist_Name(name, album, artist);
         if (readSong == null) {
-            return repository.save(dto);
+            return repository.save(entity);
         }
 
         return readSong;
     }
 
-    public SongDto findByFileName(String fileName) {
+    public Song findByFileName(String fileName) {
         return repository.findByFileName(fileName);
     }
 
-    public SongDto findOne(Integer id) {
+    public Song findOne(Integer id) {
         return repository.findOne(id);
     }
 
-    public Iterable<SongDto> findAll() {
+    public Iterable<Song> findAll() {
         return repository.findAll();
     }
 }

@@ -1,6 +1,6 @@
 package com.player.repository;
 
-import com.player.dto.AlbumDto;
+import com.player.entity.Album;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @author Николай
  */
 @Repository
-public interface AlbumRepository extends CrudRepository<AlbumDto, Integer> {
+public interface AlbumRepository extends CrudRepository<Album, Integer> {
 
-    AlbumDto findByNameAndArtistDto_Name(String name, String artistName);
+    Album findByNameAndArtist_Name(String name, String artistName);
 }

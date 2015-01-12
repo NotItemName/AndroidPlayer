@@ -1,10 +1,10 @@
 package com.player.service.songs;
 
-import com.player.dto.AlbumDto;
-import com.player.dto.ArtistDto;
-import com.player.dto.GenreDto;
-import com.player.dto.SongDto;
-import com.player.model.songs.Song;
+import com.player.entity.Album;
+import com.player.entity.Artist;
+import com.player.entity.Genre;
+import com.player.entity.Song;
+import com.player.model.songs.SongDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,55 +14,55 @@ import java.util.List;
  */
 public class SongConverter {
 
-    public static SongDto convert(Song song) {
-        SongDto songDto = new SongDto();
+    public static Song convert(SongDto song) {
+        Song songDto = new Song();
         songDto.setId(song.getId());
         songDto.setName(song.getName());
         songDto.setTrackNumber(song.getTrackNumber());
 
-        ArtistDto artistDto = new ArtistDto();
-        artistDto.setName(song.getArtistName());
-        songDto.setArtistDto(artistDto);
+        Artist artist = new Artist();
+        artist.setName(song.getArtistName());
+        songDto.setArtist(artist);
 
-        AlbumDto albumDto = new AlbumDto();
-        albumDto.setName(song.getAlbumName());
-        albumDto.setYear(song.getYear());
-        songDto.setArtistDto(artistDto);
+        Album album = new Album();
+        album.setName(song.getAlbumName());
+        album.setYear(song.getYear());
+        songDto.setArtist(artist);
 
-        GenreDto genreDto = new GenreDto();
-        genreDto.setName(song.getGenre());
-        songDto.setGenreDto(genreDto);
+        Genre genre = new Genre();
+        genre.setName(song.getGenre());
+        songDto.setGenre(genre);
         return songDto;
     }
 
-    public static Song convert(SongDto songDto) {
-        Song song = new Song();
+    public static SongDto convert(Song songDto) {
+        SongDto song = new SongDto();
         song.setId(songDto.getId());
         song.setName(songDto.getName());
         song.setTrackNumber(songDto.getTrackNumber());
 
-        ArtistDto artistDto = songDto.getArtistDto();
-        if (artistDto != null) {
-            song.setArtistName(songDto.getArtistDto().getName());
+        Artist artist = songDto.getArtist();
+        if (artist != null) {
+            song.setArtistName(songDto.getArtist().getName());
         }
 
-        AlbumDto albumDto = songDto.getAlbumDto();
-        if (albumDto != null) {
-            song.setAlbumName(albumDto.getName());
-            song.setYear(albumDto.getYear());
+        Album album = songDto.getAlbum();
+        if (album != null) {
+            song.setAlbumName(album.getName());
+            song.setYear(album.getYear());
         }
 
-        GenreDto genreDto = songDto.getGenreDto();
-        if (genreDto != null) {
-            song.setGenre(genreDto.getName());
+        Genre genre = songDto.getGenre();
+        if (genre != null) {
+            song.setGenre(genre.getName());
         }
         return song;
     }
 
-    public static List<Song> convertList(Iterable<SongDto> songDtos) {
-        List<Song> songs = new ArrayList<>();
-        for (SongDto songDto : songDtos) {
-            songs.add(convert(songDto));
+    public static List<SongDto> convertList(Iterable<Song> songDtos) {
+        List<SongDto> songs = new ArrayList<>();
+        for (Song song : songDtos) {
+            songs.add(convert(song));
         }
         return songs;
     }

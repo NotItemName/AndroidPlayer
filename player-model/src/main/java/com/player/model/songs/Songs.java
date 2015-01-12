@@ -10,14 +10,14 @@ import java.util.List;
 @XmlRootElement(name = "songs")
 public class Songs {
 
-    private List<Song> songs;
+    private List<SongDto> songDtos;
 
     @XmlElement(name = "song")
-    public List<Song> getSongs() {
-        return songs;
+    public List<SongDto> getSongDtos() {
+        return songDtos;
     }
 
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    public void setSongDtos(List<SongDto> songDtos) {
+        this.songDtos = songDtos;
     }
 }

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Николай
  */
-public class SongHelperTest {
+public class SongDtoHelperTest {
 
     private SongHelper helper = new SongHelper();
 

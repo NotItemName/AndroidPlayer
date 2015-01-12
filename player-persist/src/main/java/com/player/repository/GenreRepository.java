@@ -1,6 +1,6 @@
 package com.player.repository;
 
-import com.player.dto.GenreDto;
+import com.player.entity.Genre;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @author Николай
  */
 @Repository
-public interface GenreRepository extends CrudRepository<GenreDto, Integer> {
+public interface GenreRepository extends CrudRepository<Genre, Integer> {
 
-    GenreDto findByName(String name);
+    Genre findByName(String name);
 }

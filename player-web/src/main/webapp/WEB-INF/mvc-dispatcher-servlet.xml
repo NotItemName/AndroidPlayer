@@ -34,15 +34,41 @@
         <property name="maxUploadSize" value="100000000000"/>
     </bean>
 
-    <bean id="contentNegotiationManager"
-          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1"/>
+
+        <property name="defaultViews">
+            <list>
+                <!-- JSON View -->
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+                <!-- JAXB XML View -->
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <constructor-arg>
+                        <bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+                            <property name="packagesToScan">
+                                <list>
+                                    <value>com.player.model</value>
+                                </list>
+                            </property>
+                        </bean>
+                    </constructor-arg>
+                </bean>
+            </list>
+        </property>
+
+
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+
+    </bean>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="false"/>
         <property name="favorParameter" value="true"/>
         <property name="parameterName" value="mediaType"/>
         <property name="ignoreAcceptHeader" value="true"/>
         <property name="useJaf" value="false"/>
-        <property name="defaultContentType" value="application/xml"/>
-
+        <property name="defaultContentType" value="application/json"/>
         <property name="mediaTypes">
             <map>
                 <entry key="json" value="application/json"/>

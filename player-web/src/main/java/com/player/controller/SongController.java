@@ -26,6 +26,7 @@ import static com.player.utils.LoggerUtils.debug;
  * @author Николай
  */
 @Controller
+@RequestMapping(value = "/song")
 public class SongController {
 
     final static Logger LOGGER = Logger.getLogger(SongController.class);
@@ -36,7 +37,7 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-    @RequestMapping(value = "/uploadSong", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public SongDto uploadSong(@RequestParam("song") MultipartFile song) throws IOException {
         InputStream stream = song.getInputStream();
@@ -54,7 +55,7 @@ public class SongController {
         return songDtoEntity;
     }
 
-    @RequestMapping(value = "/export/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @RequestMapping(value = "/stream/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public FileSystemResource downloadDocument(@PathVariable Integer id, HttpServletRequest request,
                                                HttpServletResponse response) throws IOException {
@@ -68,10 +69,18 @@ public class SongController {
 
     }
 
-    @RequestMapping(value = "/songs", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public Songs getAllSongs() {
-        return songService.getAllSongs();
+        Songs songs = new Songs();
+        songs.setSongDtos(songService.getAllSongs());
+        return songs;
+    }
+
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public SongDto getSongById(@PathVariable Integer id) {
+        return songService.getSongById(id);
     }
 
     //    @PostConstruct

@@ -1,5 +1,8 @@
 package com.player.model.songs;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -7,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Mykola_Zalyayev
  */
 @XmlRootElement(name = "song")
+@JsonRootName("song")
 public class SongDto {
 
     private Integer id;
@@ -24,6 +28,7 @@ public class SongDto {
     private Integer year;
 
     @XmlElement(name = "id")
+    @JsonProperty("id")
     public Integer getId() {
         return id;
     }
@@ -33,6 +38,7 @@ public class SongDto {
     }
 
     @XmlElement(name = "name")
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
@@ -42,6 +48,7 @@ public class SongDto {
     }
 
     @XmlElement(name = "artist_name")
+    @JsonProperty("artist_name")
     public String getArtistName() {
         return artistName;
     }
@@ -51,6 +58,7 @@ public class SongDto {
     }
 
     @XmlElement(name = "album_name")
+    @JsonProperty("album_name")
     public String getAlbumName() {
         return albumName;
     }
@@ -60,6 +68,7 @@ public class SongDto {
     }
 
     @XmlElement(name = "genre")
+    @JsonProperty("genre")
     public String getGenre() {
         return genre;
     }
@@ -69,6 +78,7 @@ public class SongDto {
     }
 
     @XmlElement(name = "track_number")
+    @JsonProperty("track_number")
     public Integer getTrackNumber() {
         return trackNumber;
     }
@@ -82,6 +92,7 @@ public class SongDto {
     }
 
     @XmlElement(name = "year")
+    @JsonProperty("year")
     public void setYear(Integer year) {
         this.year = year;
     }

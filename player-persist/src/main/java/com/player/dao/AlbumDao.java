@@ -29,4 +29,12 @@ public class AlbumDao {
         }
         return readAlbum;
     }
+
+    public Iterable<Album> findAll() {
+        return repository.findAll();
+    }
+
+    public Album findOne(Integer id) {
+        return repository.findOne(id);
+    }
 }

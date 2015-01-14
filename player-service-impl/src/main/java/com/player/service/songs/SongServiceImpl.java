@@ -9,7 +9,6 @@ import com.player.entity.Artist;
 import com.player.entity.Genre;
 import com.player.entity.Song;
 import com.player.model.songs.SongDto;
-import com.player.model.songs.Songs;
 import org.apache.tika.metadata.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import static com.player.service.songs.SongConverter.convert;
 import static com.player.service.songs.SongConverter.convertList;
@@ -89,10 +89,13 @@ public class SongServiceImpl implements SongService {
 
     @Override
     @Transactional
-    public Songs getAllSongs() {
-        Songs songs = new Songs();
-        songs.setSongDtos(convertList(songDao.findAll()));
-        return songs;
+    public List<SongDto> getAllSongs() {
+        return convertList(songDao.findAll());
+    }
+
+    @Override
+    public SongDto getSongById(Integer id) {
+        return convert(songDao.findOne(id));
     }
 
 

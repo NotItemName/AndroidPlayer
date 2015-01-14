@@ -26,4 +26,12 @@ public class ArtistDao {
         }
         return readArtist;
     }
+
+    public Iterable<Artist> findAll() {
+        return repository.findAll();
+    }
+
+    public Artist findOne(Integer id) {
+        return repository.findOne(id);
+    }
 }

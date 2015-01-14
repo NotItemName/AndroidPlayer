@@ -26,4 +26,12 @@ public class GenreDao {
 
         return readGenre;
     }
+
+    public Iterable<Genre> findAll() {
+        return repository.findAll();
+    }
+
+    public Genre findOne(Integer id) {
+        return repository.findOne(id);
+    }
 }

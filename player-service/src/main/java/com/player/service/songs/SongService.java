@@ -1,10 +1,10 @@
 package com.player.service.songs;
 
 import com.player.model.songs.SongDto;
-import com.player.model.songs.Songs;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @author Mykola_Zalyayev
@@ -17,5 +17,7 @@ public interface SongService {
 
     String getFileName(Integer id);
 
-    Songs getAllSongs();
+    List<SongDto> getAllSongs();
+
+    SongDto getSongById(Integer id);
 }

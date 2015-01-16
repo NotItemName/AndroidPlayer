@@ -3,13 +3,9 @@ package com.player.model.albums;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * @author Mykola_Zalyayev
  */
-@XmlRootElement(name = "album")
 @JsonRootName("album")
 public class AlbumDto {
 
@@ -19,7 +15,6 @@ public class AlbumDto {
 
     private Integer year;
 
-    @XmlElement(name = "id")
     @JsonProperty("id")
     public Integer getId() {
         return id;
@@ -29,7 +24,6 @@ public class AlbumDto {
         this.id = id;
     }
 
-    @XmlElement(name = "name")
     @JsonProperty("name")
     public String getName() {
         return name;
@@ -39,7 +33,6 @@ public class AlbumDto {
         this.name = name;
     }
 
-    @XmlElement(name = "year")
     @JsonProperty("year")
     public Integer getYear() {
         return year;

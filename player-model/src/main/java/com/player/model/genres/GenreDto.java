@@ -3,13 +3,9 @@ package com.player.model.genres;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * @author Mykola_Zalyayev
  */
-@XmlRootElement(name = "genre")
 @JsonRootName("genre")
 public class GenreDto {
 
@@ -17,7 +13,6 @@ public class GenreDto {
 
     private String name;
 
-    @XmlElement(name = "id")
     @JsonProperty("id")
     public Integer getId() {
         return id;
@@ -27,7 +22,6 @@ public class GenreDto {
         this.id = id;
     }
 
-    @XmlElement(name = "name")
     @JsonProperty("name")
     public String getName() {
         return name;

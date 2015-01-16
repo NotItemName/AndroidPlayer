@@ -3,13 +3,9 @@ package com.player.model.artists;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * @author Mykola_Zalyayev
  */
-@XmlRootElement(name = "artist")
 @JsonRootName("artist")
 public class ArtistDto {
 
@@ -17,7 +13,6 @@ public class ArtistDto {
 
     private String name;
 
-    @XmlElement(name = "id")
     @JsonProperty("id")
     public Integer getId() {
         return id;
@@ -27,7 +22,6 @@ public class ArtistDto {
         this.id = id;
     }
 
-    @XmlElement(name = "name")
     @JsonProperty("name")
     public String getName() {
         return name;

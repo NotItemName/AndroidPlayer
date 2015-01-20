@@ -1,0 +1,57 @@
+<p>Albums page TBD</p>
+
+<div>
+    <div ng-repeat="album in albums" class="list-group-item">
+        <div>{{album.name}} ({{album.year}})</div>
+        <fieldset ng-hide="isEdit(album.id)">
+            <ul class="nav nav-pills pull-right">
+                <li><input type="button" ng-click="edit(album.id, album)" class="btn btn-primary pull-right"
+                           value="Edit"/></li>
+                <li><a class="btn" href><span class="glyphicon glyphicon-trash"></span></a></li>
+            </ul>
+        </fieldset>
+
+        <form name="editForm" ng-submit="editForm.$valid && editAlbum(album)" ng-show="isEdit(album.id) " novalidate>
+            <h4>Edit</h4>
+            <fieldset class="form-group">
+                <textarea ng-model="album.name" class="form-control"
+                          placeholder="Write a name of album..." title="Name"></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <input ng-model="album.year" type="number" class="form-control" placeholder="Year"
+                       title="Year"/>
+            </fieldset>
+            <fieldset class="form-group">
+                <ul class="nav nav-pills pull-right">
+                    <li><input type="button" ng-click="cancelEdit()" class="btn btn-primary" value="Cancel"></li>
+                    <li><input type="submit" class="btn btn-primary" value="Edit"/></li>
+                </ul>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div class="clear"></div>
+
+<fieldset ng-hide="add">
+    <input type="button" ng-click="isAdd(true)" class="btn btn-primary pull-left" value="Add"/>
+</fieldset>
+
+<form name="addForm" ng-submit="addForm.$valid && addAlbum(newAlbum)" ng-show="add" novalidate>
+    <h4>Add</h4>
+    <fieldset class="form-group">
+                <textarea ng-model="newAlbum.name" class="form-control"
+                          placeholder="Write a name of album..." title="Name"></textarea>
+    </fieldset>
+    <fieldset class="form-group">
+        <input ng-model="newAlbum.year" type="number" class="form-control" placeholder="Year"
+               title="Year"/>
+    </fieldset>
+    <fieldset class="form-group">
+        <ul class="nav nav-pills pull-right">
+            <li><input type="button" ng-click="cancelAdd()" class="btn btn-primary pull-right" value="Cancel"></li>
+            <li><input type="submit" class="btn btn-primary pull-right" value="Add"/></li>
+        </ul>
+    </fieldset>
+</form>
+

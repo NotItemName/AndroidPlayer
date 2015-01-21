@@ -5,6 +5,7 @@ import com.player.model.genres.GenreDto;
 import com.player.model.genres.Genres;
 import com.player.service.genres.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +42,19 @@ public class GenreController {
     public GenreDto getGenreById(@PathVariable Integer id) {
         Genre genre = genreService.getGenreById(id);
         return convert(genre);
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void updateAlbum(@RequestBody GenreDto genreDto) {
+        genreService.updateGenre(convert(genreDto));
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteAlbum(@PathVariable Integer id) {
+        genreService.deleteGenre(id);
     }
 }

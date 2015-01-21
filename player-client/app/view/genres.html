@@ -1,5 +1,49 @@
 <p>Genres page TBD</p>
 
-<div ng-repeat="genre in genres" class="thumbnail">
-    {{genre.name}}
+<div>
+    <div ng-repeat="genre in genres" class="list-group-item">
+        <div>{{genre.name}}</div>
+        <fieldset ng-hide="isEdit(genre.id)">
+            <ul class="nav nav-pills pull-right">
+                <li><input type="button" ng-click="edit(genre.id, genre)" class="btn btn-primary pull-right"
+                           value="Edit"/></li>
+                <li><a class="btn" ng-click="deleteGenre(genre.id)" href><i class="glyphicon glyphicon-trash"></i></a>
+                </li>
+            </ul>
+        </fieldset>
+
+        <form name="editForm" ng-submit="editForm.$valid && editGenre(genre)" ng-show="isEdit(genre.id) " novalidate>
+            <h4>Edit</h4>
+            <fieldset class="form-group">
+                <textarea ng-model="genre.name" class="form-control"
+                          placeholder="Write a name of genre..." title="Name"></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <ul class="nav nav-pills pull-right">
+                    <li><input type="button" ng-click="cancelEdit()" class="btn btn-primary" value="Cancel"></li>
+                    <li><input type="submit" class="btn btn-primary" value="Edit"/></li>
+                </ul>
+            </fieldset>
+        </form>
+    </div>
 </div>
+
+<div class="clear"></div>
+
+<fieldset ng-hide="add">
+    <input type="button" ng-click="isAdd(true)" class="btn btn-primary pull-left" value="Add"/>
+</fieldset>
+
+<form name="addForm" ng-submit="addForm.$valid && addGenre(newGenre)" ng-show="add" novalidate>
+    <h4>Add</h4>
+    <fieldset class="form-group">
+                <textarea ng-model="newGenre.name" class="form-control"
+                          placeholder="Write a name of genre..." title="Name"></textarea>
+    </fieldset>
+    <fieldset class="form-group">
+        <ul class="nav nav-pills pull-right">
+            <li><input type="button" ng-click="cancelAdd()" class="btn btn-primary pull-right" value="Cancel"></li>
+            <li><input type="submit" class="btn btn-primary pull-right" value="Add"/></li>
+        </ul>
+    </fieldset>
+</form>

@@ -5,6 +5,7 @@ import com.player.model.artists.ArtistDto;
 import com.player.model.artists.Artists;
 import com.player.service.artists.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +42,19 @@ public class ArtistController {
     public ArtistDto getArtistById(@PathVariable Integer id) {
         Artist artist = artistService.getArtistById(id);
         return convert(artist);
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void updateAlbum(@RequestBody ArtistDto genreDto) {
+        artistService.updateArtist(convert(genreDto));
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteAlbum(@PathVariable Integer id) {
+        artistService.deleteArtist(id);
     }
 }

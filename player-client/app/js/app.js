@@ -2,7 +2,8 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('playerWeb', [
-    'ngRoute', 'playerWebControllers', 'restServices', 'ngDialog'
+    'ngRoute', 'ngDialog', 'player.web.services.rest', 'player.web.controllers.tab', 'player.web.controllers.album',
+    'player.web.controllers.artist', 'player.web.controllers.genre', 'player.web.controllers.song'
 ]);
 app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
     $routeProvider.when('/songs', {

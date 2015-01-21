@@ -13,4 +13,8 @@ public interface GenreService {
     List<Genre> getAllGenres();
 
     Genre getGenreById(Integer id);
+
+    void updateGenre(Genre genre);
+
+    void deleteGenre(Integer id);
 }

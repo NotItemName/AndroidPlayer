@@ -13,4 +13,8 @@ public interface ArtistService {
     List<Artist> getAllArtists();
 
     Artist getArtistById(Integer id);
+
+    void updateArtist(Artist artist);
+
+    void deleteArtist(Integer id);
 }

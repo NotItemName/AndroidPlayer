@@ -40,4 +40,14 @@ public class ArtistServiceImpl implements ArtistService {
     public Artist getArtistById(Integer id) {
         return artistRepository.findOne(id);
     }
+
+    @Override
+    public void updateArtist(Artist artist) {
+        artistRepository.save(artist);
+    }
+
+    @Override
+    public void deleteArtist(Integer id) {
+        artistRepository.delete(id);
+    }
 }

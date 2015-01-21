@@ -1,5 +1,6 @@
 package com.player.controller;
 
+import com.player.entity.Album;
 import com.player.model.albums.AlbumDto;
 import com.player.model.albums.Albums;
 import com.player.service.albums.AlbumService;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import static com.player.convertors.AlbumConverter.convert;
+import static com.player.convertors.AlbumConverter.convertList;
 
 /**
  * @author Mykola_Zalyayev
@@ -22,7 +26,8 @@ public class AlbumController {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.CREATED)
     public AlbumDto addAlbum(@RequestBody AlbumDto albumDto) {
-        return albumService.addAlbum(albumDto);
+        Album album = albumService.addAlbum(convert(albumDto));
+        return convert(album);
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -30,7 +35,7 @@ public class AlbumController {
     @ResponseStatus(value = HttpStatus.OK)
     public Albums getAllAlbums() {
         Albums albums = new Albums();
-        albums.setAlbumDtos(albumService.getAllAlbums());
+        albums.setAlbumDtos(convertList(albumService.getAllAlbums()));
         return albums;
     }
 
@@ -38,14 +43,15 @@ public class AlbumController {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
     public AlbumDto getAlbumById(@PathVariable Integer id) {
-        return albumService.getAlbumById(id);
+        Album album = albumService.getAlbumById(id);
+        return convert(album);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateAlbum(@RequestBody AlbumDto albumDto) {
-        albumService.updateAlbum(albumDto);
+        albumService.updateAlbum(convert(albumDto));
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)

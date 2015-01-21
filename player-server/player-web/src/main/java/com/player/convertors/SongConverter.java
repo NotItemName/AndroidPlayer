@@ -1,4 +1,4 @@
-package com.player.service.songs;
+package com.player.convertors;
 
 import com.player.entity.Album;
 import com.player.entity.Artist;

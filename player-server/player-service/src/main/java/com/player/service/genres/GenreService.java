@@ -1,6 +1,6 @@
 package com.player.service.genres;
 
-import com.player.model.genres.GenreDto;
+import com.player.entity.Genre;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  * @author Mykola_Zalyayev
  */
 public interface GenreService {
-    GenreDto addGenre(GenreDto genreDto);
+    Genre addGenre(Genre genre);
 
-    List<GenreDto> getAllGenres();
+    List<Genre> getAllGenres();
 
-    GenreDto getGenreById(Integer id);
+    Genre getGenreById(Integer id);
 }

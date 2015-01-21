@@ -1,6 +1,6 @@
 package com.player.service.albums;
 
-import com.player.model.albums.AlbumDto;
+import com.player.entity.Album;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import java.util.List;
  * @author Mykola_Zalyayev
  */
 public interface AlbumService {
-    AlbumDto addAlbum(AlbumDto albumDto);
+    Album addAlbum(Album album);
 
-    List<AlbumDto> getAllAlbums();
+    List<Album> getAllAlbums();
 
-    AlbumDto getAlbumById(Integer id);
+    Album getAlbumById(Integer id);
 
-    void updateAlbum(AlbumDto albumDto);
+    void updateAlbum(Album album);
 
     void deleteAlbum(Integer id);
 }

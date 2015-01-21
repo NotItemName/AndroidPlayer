@@ -1,15 +1,12 @@
 package com.player.service.genres;
 
-import com.player.dao.GenreDao;
+import com.google.common.collect.Lists;
 import com.player.entity.Genre;
-import com.player.model.genres.GenreDto;
+import com.player.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static com.player.service.genres.GenreConverter.convert;
-import static com.player.service.genres.GenreConverter.convertList;
 
 /**
  * @author Mykola_Zalyayev
@@ -18,21 +15,29 @@ import static com.player.service.genres.GenreConverter.convertList;
 public class GenreServiceImpl implements GenreService {
 
     @Autowired
-    private GenreDao genreDao;
+    private GenreRepository genreRepository;
 
     @Override
-    public GenreDto addGenre(GenreDto genreDto) {
-        Genre genre = genreDao.save(convert(genreDto));
-        return convert(genre);
+    public Genre addGenre(Genre genre) {
+        String name = genre.getName();
+        if (name == null) {
+            return null;
+        }
+        Genre readGenre = genreRepository.findByName(name);
+        if (readGenre == null) {
+            return genreRepository.save(genre);
+        }
+
+        return readGenre;
     }
 
     @Override
-    public List<GenreDto> getAllGenres() {
-        return convertList(genreDao.findAll());
+    public List<Genre> getAllGenres() {
+        return Lists.newArrayList(genreRepository.findAll());
     }
 
     @Override
-    public GenreDto getGenreById(Integer id) {
-        return convert(genreDao.findOne(id));
+    public Genre getGenreById(Integer id) {
+        return genreRepository.findOne(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.player.service.artists;
 
-import com.player.model.artists.ArtistDto;
+import com.player.entity.Artist;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  * @author Mykola_Zalyayev
  */
 public interface ArtistService {
-    ArtistDto addArtist(ArtistDto artistDto);
+    Artist addArtist(Artist artist);
 
-    List<ArtistDto> getAllArtists();
+    List<Artist> getAllArtists();
 
-    ArtistDto getArtistById(Integer id);
+    Artist getArtistById(Integer id);
 }

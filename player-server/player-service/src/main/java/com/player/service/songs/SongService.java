@@ -1,6 +1,6 @@
 package com.player.service.songs;
 
-import com.player.model.songs.SongDto;
+import com.player.entity.Song;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,13 +11,13 @@ import java.util.List;
  */
 public interface SongService {
 
-    SongDto addSong(InputStream song, String fileName) throws IOException;
+    Song addSong(InputStream song, String fileName) throws IOException;
 
     boolean checkSongExist(String fileName);
 
     String getFileName(Integer id);
 
-    List<SongDto> getAllSongs();
+    List<Song> getAllSongs();
 
-    SongDto getSongById(Integer id);
+    Song getSongById(Integer id);
 }

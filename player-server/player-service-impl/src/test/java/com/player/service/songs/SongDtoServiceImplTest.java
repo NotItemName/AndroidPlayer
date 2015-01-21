@@ -4,7 +4,6 @@ import com.player.entity.Album;
 import com.player.entity.Artist;
 import com.player.entity.Genre;
 import com.player.entity.Song;
-import com.player.model.songs.SongDto;
 import com.player.repository.AlbumRepository;
 import com.player.repository.ArtistRepository;
 import com.player.repository.GenreRepository;
@@ -17,7 +16,6 @@ import org.mockito.Mock;
 
 import java.io.InputStream;
 
-import static com.player.service.songs.SongConverter.convert;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -59,9 +57,9 @@ public class SongDtoServiceImplTest {
         metadata.set("xmpDM:artist", "Prodigy");
         when(helper.getMetadataFromSong(stream)).thenReturn(metadata);
 
-        SongDto expectedSongDto = new SongDto();
-        expectedSongDto.setId(1);
-        expectedSongDto.setName("Invaders Must Die");
+        Song expectedSong = new Song();
+        expectedSong.setId(1);
+        expectedSong.setName("Invaders Must Die");
 
         Artist artist = new Artist();
         artist.setName("Prodigy");
@@ -70,15 +68,15 @@ public class SongDtoServiceImplTest {
 
         Genre genre = new Genre();
 
-        when(songRepository.save(any(Song.class))).thenReturn(convert(expectedSongDto));
+        when(songRepository.save(any(Song.class))).thenReturn(expectedSong);
         when(artistRepository.save(artist)).thenReturn(artist);
         when(albumRepository.save(album)).thenReturn(album);
         when(genreRepository.save(genre)).thenReturn(genre);
 
-        SongDto actualSongDto = service.addSong(stream, "testFile.flac");
+        Song actualSong = service.addSong(stream, "testFile.flac");
 
 
-        assertEquals(expectedSongDto, actualSongDto);
+        assertEquals(expectedSong, actualSong);
 
         verify(helper, times(1)).getMetadataFromSong(stream);
 

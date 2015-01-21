@@ -1,14 +1,14 @@
 package com.player.service.songs;
 
-import com.player.dao.ArtistDao;
-import com.player.dao.GenreDao;
-import com.player.dao.SongDao;
+import com.google.common.collect.Lists;
 import com.player.entity.Album;
 import com.player.entity.Artist;
 import com.player.entity.Genre;
 import com.player.entity.Song;
-import com.player.model.songs.SongDto;
-import com.player.repository.AlbumRepository;
+import com.player.repository.SongRepository;
+import com.player.service.albums.AlbumService;
+import com.player.service.artists.ArtistService;
+import com.player.service.genres.GenreService;
 import org.apache.tika.metadata.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static com.player.service.songs.SongConverter.convert;
-import static com.player.service.songs.SongConverter.convertList;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 
@@ -33,20 +31,20 @@ public class SongServiceImpl implements SongService {
     private SongHelper helper;
 
     @Autowired
-    private SongDao songDao;
+    private SongRepository songRepository;
 
     @Autowired
-    private ArtistDao artistDao;
+    private ArtistService artistService;
 
     @Autowired
-    private AlbumRepository albumRepository;
+    private AlbumService albumService;
 
     @Autowired
-    private GenreDao genredao;
+    private GenreService genreService;
 
     @Override
     @Transactional
-    public SongDto addSong(InputStream stream, String fileName) throws IOException {
+    public Song addSong(InputStream stream, String fileName) throws IOException {
         Metadata audioMetadata = helper.getMetadataFromSong(stream);
 
         if (audioMetadata == null) {
@@ -56,47 +54,53 @@ public class SongServiceImpl implements SongService {
         Song song = convertSongFromMetadata(audioMetadata);
 
         Artist artist = convertArtistFromMetadata(audioMetadata);
-        artist = artistDao.save(artist);
-        song.setArtist(artist);
+        song.setArtist(artistService.addArtist(artist));
 
-
-        //TODO replace with repository
-//        Album album = convertAlbumFromMetadata(audioMetadata);
-//        album.setArtist(artist);
-//        album = albumDao.save(album);
-//        song.setAlbum(album);
-
+        Album album = convertAlbumFromMetadata(audioMetadata);
+        album.setArtist(artist);
+        song.setAlbum(albumService.addAlbum(album));
 
         Genre genre = convertGenreFromMetadata(audioMetadata);
-        genre = genredao.save(genre);
-        song.setGenre(genre);
+        song.setGenre(genreService.addGenre(genre));
 
         song.setFileName(fileName);
 
-        return convert(songDao.save(song));
+        String name = song.getName();
+        String albumName = album == null ? null : album.getName();
+        String artistName = artist == null ? null : artist.getName();
+
+        if (name == null) {
+            return null;
+        }
+        Song readSong = songRepository.findByNameAndAlbum_NameAndArtist_Name(name, albumName, artistName);
+        if (readSong == null) {
+            return songRepository.save(song);
+        }
+
+        return readSong;
     }
 
     @Override
     @Transactional
     public boolean checkSongExist(String fileName) {
-        return songDao.findByFileName(fileName) != null;
+        return songRepository.findByFileName(fileName) != null;
     }
 
     @Override
     @Transactional
     public String getFileName(Integer id) {
-        return songDao.findOne(id).getFileName();
+        return songRepository.findOne(id).getFileName();
     }
 
     @Override
     @Transactional
-    public List<SongDto> getAllSongs() {
-        return convertList(songDao.findAll());
+    public List<Song> getAllSongs() {
+        return Lists.newArrayList(songRepository.findAll());
     }
 
     @Override
-    public SongDto getSongById(Integer id) {
-        return convert(songDao.findOne(id));
+    public Song getSongById(Integer id) {
+        return songRepository.findOne(id);
     }
 
 

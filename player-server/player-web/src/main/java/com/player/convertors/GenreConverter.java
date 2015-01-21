@@ -1,4 +1,4 @@
-package com.player.service.genres;
+package com.player.convertors;
 
 import com.player.entity.Genre;
 import com.player.model.genres.GenreDto;

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.player</groupId>
-            <artifactId>player-model</artifactId>
+            <artifactId>player-persist</artifactId>
             <version>${build.version}</version>
         </dependency>
     </dependencies>

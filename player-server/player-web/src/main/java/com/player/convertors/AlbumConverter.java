@@ -1,4 +1,4 @@
-package com.player.service.albums;
+package com.player.convertors;
 
 import com.player.entity.Album;
 import com.player.model.albums.AlbumDto;

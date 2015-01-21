@@ -1,5 +1,6 @@
 package com.player.controller;
 
+import com.player.entity.Song;
 import com.player.model.songs.SongDto;
 import com.player.model.songs.Songs;
 import com.player.service.songs.SongService;
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import static com.player.convertors.SongConverter.convert;
+import static com.player.convertors.SongConverter.convertList;
 import static com.player.utils.LoggerUtils.debug;
 
 /**
@@ -45,7 +48,7 @@ public class SongController {
         String fileName = null;
         if (checkFileIsSong(song.getOriginalFilename())) {
             //fileName = saveFileOnDisc(song, fileDirectory);
-            songDtoEntity = songService.addSong(stream, fileName);
+            songDtoEntity = convert(songService.addSong(stream, fileName));
         }
 
         if (songDtoEntity == null && fileName != null) {
@@ -73,14 +76,15 @@ public class SongController {
     @ResponseBody
     public Songs getAllSongs() {
         Songs songs = new Songs();
-        songs.setSongDtos(songService.getAllSongs());
+        songs.setSongDtos(convertList(songService.getAllSongs()));
         return songs;
     }
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
     public SongDto getSongById(@PathVariable Integer id) {
-        return songService.getSongById(id);
+        Song song = songService.getSongById(id);
+        return convert(song);
     }
 
     //    @PostConstruct

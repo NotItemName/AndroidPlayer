@@ -1,4 +1,4 @@
-package com.player.service.artists;
+package com.player.convertors;
 
 import com.player.entity.Artist;
 import com.player.model.artists.ArtistDto;

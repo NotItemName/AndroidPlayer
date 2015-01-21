@@ -23,6 +23,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.player</groupId>
+            <artifactId>player-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>

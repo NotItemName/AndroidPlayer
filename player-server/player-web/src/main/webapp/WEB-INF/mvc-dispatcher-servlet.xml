@@ -12,11 +12,13 @@
 			http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
 			http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <context:component-scan base-package="com.player"/>
+    <context:component-scan base-package="com.player.service"/>
+    <context:component-scan base-package="com.player.controller"/>
+    <context:component-scan base-package="com.player.listener"/>
+    <context:component-scan base-package="com.player.model"/>
     <context:annotation-config/>
 
     <mvc:annotation-driven/>
-    <mvc:view-controller path="/" view-name="static/main.html"/>
 
     <jpa:repositories base-package="com.player.repository"/>
 

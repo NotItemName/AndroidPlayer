@@ -18,7 +18,7 @@ public class Genre implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "genre")
+    @OneToMany(mappedBy = "genre")
     private Set<Song> songs;
 
     public Set<Song> getSongs() {

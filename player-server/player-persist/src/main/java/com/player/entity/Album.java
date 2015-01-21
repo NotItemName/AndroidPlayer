@@ -20,10 +20,10 @@ public class Album implements Serializable {
     @Column(name = "YEAR")
     private Integer year;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "album")
+    @OneToMany
     private Set<Song> songs;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
 

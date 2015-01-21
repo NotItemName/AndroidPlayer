@@ -18,10 +18,10 @@ public class Artist implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artist")
+    @OneToMany(mappedBy = "artist")
     private Set<Song> songs;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artist")
+    @OneToMany(mappedBy = "artist")
     private Set<Album> albums;
 
     public Integer getId() {

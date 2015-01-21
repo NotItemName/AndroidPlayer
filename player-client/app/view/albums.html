@@ -7,7 +7,8 @@
             <ul class="nav nav-pills pull-right">
                 <li><input type="button" ng-click="edit(album.id, album)" class="btn btn-primary pull-right"
                            value="Edit"/></li>
-                <li><a class="btn" href><span class="glyphicon glyphicon-trash"></span></a></li>
+                <li><a class="btn" ng-click="deleteAlbum(album.id)" href><i class="glyphicon glyphicon-trash"></i></a>
+                </li>
             </ul>
         </fieldset>
 

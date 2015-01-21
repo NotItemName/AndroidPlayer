@@ -22,15 +22,15 @@ public class Song implements Serializable {
     @Column(name = "FILE_NAME", unique = true)
     private String fileName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ALBUM_ID")
     private Album album;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "GENRE_ID")
     private Genre genre;
 

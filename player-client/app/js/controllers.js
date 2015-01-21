@@ -34,7 +34,7 @@ app.controller('ArtistController', ['$scope','Artist' , function($scope, Artist)
     })
 }]);
 
-app.controller('AlbumController', ['$scope','Album' , function($scope, Album) {
+app.controller('AlbumController', ['$scope','Album', 'ngDialog' , function($scope, Album, ngDialog) {
     $scope.editAlbumId = 0;
     $scope.newAlbum = {};
     $scope.add = false;
@@ -85,7 +85,21 @@ app.controller('AlbumController', ['$scope','Album' , function($scope, Album) {
         $scope.cancelAdd();
     }
 
-    $scope.deleteAlbum = function(){
+    $scope.deleteAlbum = function(id){
+        if(Album.deleteAlbum(id)){
+            for(i in $scope.albums){
+                if($scope.albums[i].id === id){
+                    $scope.albums.splice(i, 1);
+                }
+            }
+        } else {
+            //TODO
+            ngDialog.open({
+                template: 'view/popup.html',
+            	className: 'ngdialog-theme-plain',
+            	scope: $scope
+            });
+        };
     }
 
     $scope.getAllAlbums();

@@ -18,6 +18,8 @@ restServices.factory('Genre', ['$resource',
 
 restServices.factory('Album', ['$resource',
   function($resource){
+    var path = 'http://localhost:8090/player-server/album';
+
     var getAll = function(){
       return readQuery.get({albumId:''});
     };
@@ -34,17 +36,27 @@ restServices.factory('Album', ['$resource',
       insertQuery.add(album);
     };
 
-    var readQuery = $resource('http://localhost:8090/player-server/album/get/:albumId', {albumId:'@id'});
-    var updateQuery = $resource('http://localhost:8090/player-server/album/update/:albumId',{albumId:'@id'},
-      {'update': {method:'PUT'}});
-    var insertQuery = $resource('http://localhost:8090/player-server/album/add',null,
-      {'add': {method:'POST'}})
+    var deleteAlbum = function(id){
+      deleteQuery.d({albumId:id})
+      .$promise.then(
+          //success
+        function( value ){return true;},
+          //error
+        function( error ){return false;}
+      );
+    };
+
+    var readQuery = $resource(path + '/get/:albumId', {albumId:'@id'});
+    var updateQuery = $resource(path + '/update/:albumId', {albumId:'@id'}, {'update': {method:'PUT'}});
+    var insertQuery = $resource(path + '/add',null, {'add': {method:'POST'}});
+    var deleteQuery = $resource(path + '/delete/:albumId', {albumId:'@id'}, {'d': {method:'DELETE'}});
 
     return {
         getAll: getAll,
         getById: getById,
         updateAlbum: updateAlbum,
-        addAlbum: addAlbum
+        addAlbum: addAlbum,
+        deleteAlbum: deleteAlbum
     };
 }]);
 

@@ -1,6 +1,5 @@
 package com.player.service.songs;
 
-import com.player.dao.AlbumDao;
 import com.player.dao.ArtistDao;
 import com.player.dao.GenreDao;
 import com.player.dao.SongDao;
@@ -9,6 +8,7 @@ import com.player.entity.Artist;
 import com.player.entity.Genre;
 import com.player.entity.Song;
 import com.player.model.songs.SongDto;
+import com.player.repository.AlbumRepository;
 import org.apache.tika.metadata.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class SongServiceImpl implements SongService {
     private ArtistDao artistDao;
 
     @Autowired
-    private AlbumDao albumDao;
+    private AlbumRepository albumRepository;
 
     @Autowired
     private GenreDao genredao;
@@ -60,10 +60,11 @@ public class SongServiceImpl implements SongService {
         song.setArtist(artist);
 
 
-        Album album = convertAlbumFromMetadata(audioMetadata);
-        album.setArtist(artist);
-        album = albumDao.save(album);
-        song.setAlbum(album);
+        //TODO replace with repository
+//        Album album = convertAlbumFromMetadata(audioMetadata);
+//        album.setArtist(artist);
+//        album = albumDao.save(album);
+//        song.setAlbum(album);
 
 
         Genre genre = convertGenreFromMetadata(audioMetadata);

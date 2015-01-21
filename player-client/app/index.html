@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="playerWeb">
+<head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body class="list-group">
+
+<header>
+    <h1 class="text-center">Administrative page</h1>
+</header>
+
+<div class="list-group-item">
+
+    <section class="tab" ng-controller="TabController">
+        <ul class="nav nav-pills">
+            <li ng-class="{active:isSet(1)}"><a href="#/songs" ng-click="setTab(1)">Songs</a></li>
+            <li ng-class="{active:isSet(2)}"><a href="#/artists" ng-click="setTab(2)">Artists</a></li>
+            <li ng-class="{active:isSet(3)}"><a href="#/genres" ng-click="setTab(3)">Genres</a></li>
+            <li ng-class="{active:isSet(4)}"><a href="#/albums" ng-click="setTab(4)">Albums</a></li>
+        </ul>
+
+        <div ng-view></div>
+    </section>
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/directives.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/services.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.player.convertors;
 
 import com.player.entity.Album;
+import com.player.entity.Artist;
 import com.player.model.albums.AlbumDto;
 
 import java.util.ArrayList;
@@ -16,15 +17,25 @@ public class AlbumConverter {
         album.setId(albumDto.getId());
         album.setName(albumDto.getName());
         album.setYear(albumDto.getYear());
+        String artistName = albumDto.getArtist();
+        if (artistName != null) {
+            Artist artist = new Artist();
+            artist.setName(artistName);
+            album.setArtist(artist);
+        }
         return album;
     }
 
     public static AlbumDto convert(Album album) {
-        AlbumDto genreDto = new AlbumDto();
-        genreDto.setId(album.getId());
-        genreDto.setName(album.getName());
-        genreDto.setYear(album.getYear());
-        return genreDto;
+        AlbumDto albumDto = new AlbumDto();
+        albumDto.setId(album.getId());
+        albumDto.setName(album.getName());
+        albumDto.setYear(album.getYear());
+        Artist artist = album.getArtist();
+        if (artist != null) {
+            albumDto.setArtist(artist.getName());
+        }
+        return albumDto;
     }
 
     public static List<AlbumDto> convertList(Iterable<Album> albums) {

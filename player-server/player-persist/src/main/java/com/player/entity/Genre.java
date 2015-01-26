@@ -18,15 +18,16 @@ public class Genre implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "genre")
-    private Set<Song> songs;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinTable(name = "GENRE_ALBUM", joinColumns = {@JoinColumn(name = "ID_GENRE")}, inverseJoinColumns = {@JoinColumn(name = "ID_ALBUM")})
+    private Set<Album> albums;
 
-    public Set<Song> getSongs() {
-        return songs;
+    public Set<Album> getAlbums() {
+        return albums;
     }
 
-    public void setSongs(Set<Song> songs) {
-        this.songs = songs;
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
     }
 
     public String getName() {

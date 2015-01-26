@@ -23,9 +23,13 @@ public class Album implements Serializable {
     @OneToMany
     private Set<Song> songs;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
     @JoinColumn(name = "ARTIST_ID")
     private Artist artist;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinTable(name = "GENRE_ALBUM", joinColumns = {@JoinColumn(name = "ID_ALBUM")}, inverseJoinColumns = {@JoinColumn(name = "ID_GENRE")})
+    private Set<Genre> genres;
 
     public Integer getId() {
         return id;
@@ -65,6 +69,14 @@ public class Album implements Serializable {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
     }
 
     @Override

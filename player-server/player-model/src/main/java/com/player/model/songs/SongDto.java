@@ -3,6 +3,8 @@ package com.player.model.songs;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import java.util.List;
+
 /**
  * @author Mykola_Zalyayev
  */
@@ -17,7 +19,7 @@ public class SongDto {
 
     private String albumName;
 
-    private String genre;
+    private List<String> genre;
 
     private Integer trackNumber;
 
@@ -59,12 +61,12 @@ public class SongDto {
         this.albumName = albumName;
     }
 
-    @JsonProperty("genre")
-    public String getGenre() {
+    @JsonProperty("genres")
+    public List<String> getGenres() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 

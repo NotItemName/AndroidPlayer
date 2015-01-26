@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
@@ -60,8 +62,8 @@ public class SongServiceImpl implements SongService {
         album.setArtist(artist);
         song.setAlbum(albumService.addAlbum(album));
 
-        Genre genre = convertGenreFromMetadata(audioMetadata);
-        song.setGenre(genreService.addGenre(genre));
+        Set<Genre> genres = convertGenreFromMetadata(audioMetadata);
+        album.setGenres(genreService.addGenres(genres));
 
         song.setFileName(fileName);
 
@@ -99,6 +101,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @Transactional
     public Song getSongById(Integer id) {
         return songRepository.findOne(id);
     }
@@ -117,13 +120,15 @@ public class SongServiceImpl implements SongService {
         return song;
     }
 
-    private Genre convertGenreFromMetadata(Metadata metadata) {
-        Genre genreDto = new Genre();
-        String genre = metadata.get("xmpDM:genre");
-        if (isNotBlank(genre)) {
-            genreDto.setName(genre);
+    private Set<Genre> convertGenreFromMetadata(Metadata metadata) {
+        Set<Genre> genres = new HashSet<>();
+        String genresStr = metadata.get("xmpDM:genre");
+        for (String genreStr : genresStr.split(",")) {
+            Genre genre = new Genre();
+            genre.setName(genreStr);
+            genres.add(genre);
         }
-        return genreDto;
+        return genres;
     }
 
     private Album convertAlbumFromMetadata(Metadata metadata) {

@@ -3,6 +3,7 @@
 <div>
     <div ng-repeat="album in albums" class="list-group-item">
         <div>{{album.name}} ({{album.year}})</div>
+        <blockquote ng-show="album.artist != null">{{album.artist}}</blockquote>
         <fieldset ng-hide="isEdit(album.id)">
             <ul class="nav nav-pills pull-right">
                 <li><input type="button" ng-click="edit(album.id, album)" class="btn btn-primary pull-right"
@@ -21,6 +22,10 @@
             <fieldset class="form-group">
                 <input ng-model="album.year" type="number" class="form-control" placeholder="Year"
                        title="Year"/>
+            </fieldset>
+            <fieldset class="form-group">
+                <input ng-model="album.artist" type="text" class="form-control"
+                       placeholder="Write a name of artist..." title="Year"/>
             </fieldset>
             <fieldset class="form-group">
                 <ul class="nav nav-pills pull-right">
@@ -47,6 +52,10 @@
     <fieldset class="form-group">
         <input ng-model="newAlbum.year" type="number" class="form-control" placeholder="Year"
                title="Year"/>
+    </fieldset>
+    <fieldset class="form-group">
+        <input ng-model="newAlbum.artist" type="text" class="form-control"
+               placeholder="Write a name of artist..." title="Year"/>
     </fieldset>
     <fieldset class="form-group">
         <ul class="nav nav-pills pull-right">

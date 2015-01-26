@@ -30,10 +30,6 @@ public class Song implements Serializable {
     @JoinColumn(name = "ALBUM_ID")
     private Album album;
 
-    @ManyToOne
-    @JoinColumn(name = "GENRE_ID")
-    private Genre genre;
-
     public Integer getId() {
         return id;
     }
@@ -80,14 +76,6 @@ public class Song implements Serializable {
 
     public void setAlbum(Album album) {
         this.album = album;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
     }
 
     @Override

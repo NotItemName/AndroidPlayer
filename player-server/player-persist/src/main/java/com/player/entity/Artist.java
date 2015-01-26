@@ -19,9 +19,6 @@ public class Artist implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "artist")
-    private Set<Song> songs;
-
-    @OneToMany(mappedBy = "artist")
     private Set<Album> albums;
 
     public Integer getId() {
@@ -38,14 +35,6 @@ public class Artist implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(Set<Song> songs) {
-        this.songs = songs;
     }
 
     public Set<Album> getAlbums() {

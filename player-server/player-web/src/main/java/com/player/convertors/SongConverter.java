@@ -7,7 +7,9 @@ import com.player.entity.Song;
 import com.player.model.songs.SongDto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Mykola_Zalyayev
@@ -27,11 +29,15 @@ public class SongConverter {
         Album album = new Album();
         album.setName(songDto.getAlbumName());
         album.setYear(songDto.getYear());
+        Set<Genre> genres = new HashSet<>();
+        for (String genreStr : songDto.getGenres()) {
+            Genre genre = new Genre();
+            genre.setName(genreStr);
+            genres.add(genre);
+        }
+        album.setGenres(genres);
         song.setArtist(artist);
 
-        Genre genre = new Genre();
-        genre.setName(songDto.getGenre());
-        song.setGenre(genre);
         return song;
     }
 
@@ -50,11 +56,11 @@ public class SongConverter {
         if (album != null) {
             songDto.setAlbumName(album.getName());
             songDto.setYear(album.getYear());
-        }
-
-        Genre genre = song.getGenre();
-        if (genre != null) {
-            songDto.setGenre(genre.getName());
+            List<String> genres = new ArrayList<>();
+            for (Genre genre : album.getGenres()) {
+                genres.add(genre.getName());
+            }
+            songDto.setGenre(genres);
         }
         return songDto;
     }

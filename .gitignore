@@ -14,5 +14,8 @@
 # Maven
 log/
 target/
+
+# node js
 bower_components
 components
+node_modules

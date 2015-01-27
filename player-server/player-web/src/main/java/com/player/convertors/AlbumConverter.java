@@ -2,10 +2,13 @@ package com.player.convertors;
 
 import com.player.entity.Album;
 import com.player.entity.Artist;
+import com.player.entity.Genre;
 import com.player.model.albums.AlbumDto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Mykola_Zalyayev
@@ -23,6 +26,13 @@ public class AlbumConverter {
             artist.setName(artistName);
             album.setArtist(artist);
         }
+        Set<Genre> genreSet = new HashSet<>();
+        for (String str : albumDto.getGenres()) {
+            Genre genre = new Genre();
+            genre.setName(str);
+            genreSet.add(genre);
+        }
+        album.setGenres(genreSet);
         return album;
     }
 
@@ -35,6 +45,11 @@ public class AlbumConverter {
         if (artist != null) {
             albumDto.setArtist(artist.getName());
         }
+        List<String> genres = new ArrayList<>();
+        for (Genre genre : album.getGenres()) {
+            genres.add(genre.getName());
+        }
+        albumDto.setGenres(genres);
         return albumDto;
     }
 

@@ -20,4 +20,6 @@ public interface GenreService {
     void updateGenre(Genre genre);
 
     void deleteGenre(Integer id);
+
+    Set<Genre> addAllGenre(Set<Genre> genres);
 }

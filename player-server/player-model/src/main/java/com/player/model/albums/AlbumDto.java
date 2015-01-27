@@ -3,6 +3,8 @@ package com.player.model.albums;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import java.util.List;
+
 /**
  * @author Mykola_Zalyayev
  */
@@ -16,6 +18,8 @@ public class AlbumDto {
     private Integer year;
 
     private String artist;
+
+    private List<String> genres;
 
     @JsonProperty("id")
     public Integer getId() {
@@ -51,6 +55,15 @@ public class AlbumDto {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    @JsonProperty("genres")
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 
     @Override

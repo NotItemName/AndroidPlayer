@@ -68,4 +68,13 @@ public class GenreServiceImpl implements GenreService {
     public void deleteGenre(Integer id) {
         genreRepository.delete(id);
     }
+
+    @Override
+    public Set<Genre> addAllGenre(Set<Genre> genres) {
+        Set<Genre> genreSet = new HashSet<>();
+        for (Genre genre : genres) {
+            genreSet.add(addGenre(genre));
+        }
+        return genreSet;
+    }
 }

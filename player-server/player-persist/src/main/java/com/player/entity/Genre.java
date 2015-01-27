@@ -54,12 +54,15 @@ public class Genre implements Serializable {
         Genre genre = (Genre) o;
 
         if (id != null ? !id.equals(genre.id) : genre.id != null) return false;
+        if (name != null ? !name.equals(genre.name) : genre.name != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

@@ -20,7 +20,7 @@ public class Album implements Serializable {
     @Column(name = "YEAR")
     private Integer year;
 
-    @OneToMany
+    @OneToMany(mappedBy = "album")
     private Set<Song> songs;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})

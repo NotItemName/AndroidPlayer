@@ -5,6 +5,7 @@ import com.player.entity.Album;
 import com.player.entity.Artist;
 import com.player.repository.AlbumRepository;
 import com.player.service.artists.ArtistService;
+import com.player.service.genres.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,9 @@ public class AlbumServiceImpl implements AlbumService {
     @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    private GenreService genreService;
+
     @Override
     @Transactional
     public Album addAlbum(Album entity) {
@@ -33,6 +37,7 @@ public class AlbumServiceImpl implements AlbumService {
         Artist artist = entity.getArtist();
         artist = artistService.addArtist(artist);
         entity.setArtist(artist);
+        entity.setGenres(genreService.addAllGenre(entity.getGenres()));
         String artistName = artist == null ? null : artist.getName();
 
         Album album = albumRepository.findByNameAndArtist_Name(entity.getName(), artistName);
@@ -61,6 +66,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     @Transactional
     public void updateAlbum(Album album) {
+        album.setGenres(genreService.addAllGenre(album.getGenres()));
         album.setArtist(artistService.addArtist(album.getArtist()));
         albumRepository.save(album);
     }

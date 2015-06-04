@@ -16,6 +16,9 @@ log/
 target/
 
 # node js
-bower_components
-components
-node_modules
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+tmp
+.idea

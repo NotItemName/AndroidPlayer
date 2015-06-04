@@ -14,12 +14,16 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * @author Николай
  */
 @Component
 public class SongHelper {
+
+    private static final Logger LOGGER = Logger.getLogger(SongHelper.class);
 
     public Metadata getMetadataFromSong(InputStream input) throws IOException {
         InputStream bufferedInputStream = new BufferedInputStream(input);
@@ -31,7 +35,7 @@ public class SongHelper {
             parser.parse(bufferedInputStream, handler, metadata, parseCtx);
             input.close();
         } catch (SAXException | TikaException e) {
-            return null;
+            LOGGER.error("Error while loading metadata from song",e);
         }
 
         return metadata;

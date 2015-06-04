@@ -15,6 +15,9 @@ import java.util.Set;
  */
 public class AlbumConverter {
 
+    private AlbumConverter() {
+    }
+
     public static Album convert(AlbumDto albumDto) {
         Album album = new Album();
         album.setId(albumDto.getId());

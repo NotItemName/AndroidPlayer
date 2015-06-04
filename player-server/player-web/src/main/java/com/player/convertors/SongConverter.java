@@ -16,6 +16,9 @@ import java.util.Set;
  */
 public class SongConverter {
 
+    private SongConverter() {
+    }
+
     public static Song convert(SongDto songDto) {
         Song song = new Song();
         song.setId(songDto.getId());

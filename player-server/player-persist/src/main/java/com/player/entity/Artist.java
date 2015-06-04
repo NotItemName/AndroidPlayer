@@ -47,12 +47,18 @@ public class Artist implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Artist artist = (Artist) o;
 
-        if (id != null ? !id.equals(artist.id) : artist.id != null) return false;
+        if (id != null ? !id.equals(artist.id) : artist.id != null) {
+            return false;
+        }
 
         return true;
     }

@@ -81,12 +81,18 @@ public class Album implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Album album = (Album) o;
 
-        if (id != null ? !id.equals(album.id) : album.id != null) return false;
+        if (id != null ? !id.equals(album.id) : album.id != null) {
+            return false;
+        }
 
         return true;
     }

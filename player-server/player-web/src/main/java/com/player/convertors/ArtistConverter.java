@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class ArtistConverter {
 
+    private ArtistConverter() {
+    }
+
     public static Artist convert(ArtistDto artistDto) {
         Artist artist = new Artist();
         artist.setId(artistDto.getId());

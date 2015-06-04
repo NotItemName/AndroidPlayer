@@ -10,6 +10,9 @@ import java.util.List;
  * @author Mykola_Zalyayev
  */
 public class GenreConverter {
+    
+    private GenreConverter(){
+    }
 
     public static Genre convert(GenreDto genreDto) {
         Genre genre = new Genre();

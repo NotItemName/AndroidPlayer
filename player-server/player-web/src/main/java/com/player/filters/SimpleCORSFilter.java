@@ -11,8 +11,9 @@ import java.io.IOException;
  */
 public class SimpleCORSFilter implements Filter {
 
-    final static Logger LOGGER = Logger.getLogger(SimpleCORSFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(SimpleCORSFilter.class);
 
+    @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,11 +22,15 @@ public class SimpleCORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type, accept");
         chain.doFilter(req, res);
     }
-
+    
+    @Override
     public void init(FilterConfig filterConfig) {
+        LOGGER.debug("Init");
     }
-
+    
+    @Override
     public void destroy() {
+        LOGGER.debug("Destroy");
     }
 
 }

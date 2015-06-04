@@ -13,7 +13,6 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +22,6 @@ import java.util.UUID;
 
 import static com.player.convertors.SongConverter.convert;
 import static com.player.convertors.SongConverter.convertList;
-import static com.player.utils.LoggerUtils.debug;
 
 /**
  * @author Николай
@@ -32,10 +30,10 @@ import static com.player.utils.LoggerUtils.debug;
 @RequestMapping(value = "/song")
 public class SongController {
 
-    final static Logger LOGGER = Logger.getLogger(SongController.class);
+    private static final Logger LOGGER = Logger.getLogger(SongController.class);
 
     //    @Value("${service.songs.directory}")
-    public String fileDirectory;
+    private String fileDirectory;
 
     @Autowired
     private SongService songService;
@@ -60,7 +58,7 @@ public class SongController {
 
     @RequestMapping(value = "/stream/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
-    public FileSystemResource downloadDocument(@PathVariable Integer id, HttpServletRequest request,
+    public FileSystemResource downloadDocument(@PathVariable Integer id,
                                                HttpServletResponse response) throws IOException {
 
         String fileName = songService.getFileName(id);
@@ -98,13 +96,14 @@ public class SongController {
             updateFiles(files);
         }
         watch.stop();
-        debug(LOGGER, "Current update time", String.valueOf(watch.getLastTaskTimeMillis()));
+        String executionTime = String.valueOf(watch.getLastTaskTimeMillis());
+        LOGGER.debug("Current update time " + executionTime);
     }
 
     private void updateFiles(File[] files) throws IOException {
         for (File file : files) {
             String fileName = file.getName();
-            debug(LOGGER, "Update file", fileName);
+            LOGGER.debug("Update file" + fileName);
 
             if (!checkFileIsSong(fileName)) {
                 continue;

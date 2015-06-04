@@ -17,7 +17,7 @@ import java.util.Enumeration;
  */
 @WebListener // register it as you wish
 public class ContainerContextClosedHandler implements ServletContextListener {
-    private static final Logger logger = LoggerFactory.getLogger(ContainerContextClosedHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContainerContextClosedHandler.class);
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
@@ -37,7 +37,7 @@ public class ContainerContextClosedHandler implements ServletContextListener {
                 DriverManager.deregisterDriver(driver);
 
             } catch (SQLException ex) {
-                // deregistration failed, might want to do something, log at the very least
+                LOGGER.error("Driver deregistration failed",ex);
             }
         }
 
@@ -45,7 +45,7 @@ public class ContainerContextClosedHandler implements ServletContextListener {
         try {
             AbandonedConnectionCleanupThread.shutdown();
         } catch (InterruptedException e) {
-            // again failure, not much you can do
+            LOGGER.error("Driver deregistration failed",e);
         }
     }
 

@@ -68,15 +68,27 @@ public class AlbumDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AlbumDto albumDto = (AlbumDto) o;
 
-        if (artist != null ? !artist.equals(albumDto.artist) : albumDto.artist != null) return false;
-        if (id != null ? !id.equals(albumDto.id) : albumDto.id != null) return false;
-        if (name != null ? !name.equals(albumDto.name) : albumDto.name != null) return false;
-        if (year != null ? !year.equals(albumDto.year) : albumDto.year != null) return false;
+        if (artist != null ? !artist.equals(albumDto.artist) : albumDto.artist != null) {
+            return false;
+        }
+        if (id != null ? !id.equals(albumDto.id) : albumDto.id != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(albumDto.name) : albumDto.name != null) {
+            return false;
+        }
+        if (year != null ? !year.equals(albumDto.year) : albumDto.year != null) {
+            return false;
+        }
 
         return true;
     }

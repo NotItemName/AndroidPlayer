@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('playerWeb', [
-    'ngRoute', 'ngDialog', 'oi.multiselect',
+    'ngRoute', 'ngDialog', 'oi.multiselect', 'ngMaterial',
     'player.web.services.rest', 'player.web.controllers.tab', 'player.web.controllers.album',
     'player.web.controllers.artist', 'player.web.controllers.genre', 'player.web.controllers.song'
 ]);

@@ -8,32 +8,66 @@
     <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css">
     <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-plain.css">
     <link rel="stylesheet" href="bower_components/oi.multiselect/dist/multiselect.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 </head>
-<body class="list-group">
+<body>
+    <div ng-controller="TabController" layout="column" style="height: 100%" class="sidenavdemoBasicUsage" ng-app="playerWeb">
+        <section layout="row" flex="">
+            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                        md-is-locked-open="true">
+                <md-toolbar class="md-theme-indigo">
+                    <h1 class="md-toolbar-tools">Sidenav Left</h1>
+                </md-toolbar>
+                <md-content layout-padding="">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{active:isSet(1)}"><a href="#/songs" ng-click="setTab(1)">Songs</a></li>
+                        <li ng-class="{active:isSet(2)}"><a href="#/artists" ng-click="setTab(2)">Artists</a></li>
+                        <li ng-class="{active:isSet(3)}"><a href="#/genres" ng-click="setTab(3)">Genres</a></li>
+                        <li ng-class="{active:isSet(4)}"><a href="#/albums" ng-click="setTab(4)">Albums</a></li>
+                    </ul>
+                </md-content>
 
-<header>
-    <h1 class="text-center">Administrative page</h1>
-</header>
+            </md-sidenav>
 
-<div class="list-group-item">
+            <md-content flex="" layout-padding="">
+                <div ng-view></div>
+                <div flex=""></div>
+            </md-content>
+        </section>
 
-    <section class="tab" ng-controller="TabController">
-        <ul class="nav nav-pills">
-            <li ng-class="{active:isSet(1)}"><a href="#/songs" ng-click="setTab(1)">Songs</a></li>
-            <li ng-class="{active:isSet(2)}"><a href="#/artists" ng-click="setTab(2)">Artists</a></li>
-            <li ng-class="{active:isSet(3)}"><a href="#/genres" ng-click="setTab(3)">Genres</a></li>
-            <li ng-class="{active:isSet(4)}"><a href="#/albums" ng-click="setTab(4)">Albums</a></li>
-        </ul>
+    </div>
 
-        <div ng-view></div>
-    </section>
+    <!--<nav class="navbar navbar-default">-->
+    <!--<div class="container-fluid">-->
+    <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+    <!--<div class="navbar-header">-->
+    <!--<a class="navbar-brand" href="#">Brand</a>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+    <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+
+    <!--<form class="navbar-form navbar-right" role="search">-->
+    <!--<div class="form-group">-->
+    <!--<input type="text" class="form-control" placeholder="Search">-->
+    <!--</div>-->
+    <!--<button type="submit" class="btn btn-default">Submit</button>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</nav>-->
+
+
 </div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/ngDialog/js/ngDialog.js"></script>
 <script src="bower_components/oi.multiselect/dist/multiselect-tpls.js"></script>

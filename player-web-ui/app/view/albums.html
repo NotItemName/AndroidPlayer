@@ -1,7 +1,7 @@
 <p>Albums page TBD</p>
 
 <div>
-    <div>
+    <div ng-show="false">
         <h4>Filter</h4>
         <fieldset class="form-group">
                 <textarea ng-model="filterOptions.album" class="form-control"
@@ -23,8 +23,8 @@
         </fieldset>
     </div>
     <div ng-repeat="album in albums | albumFilter:filterOptions"
-         class="list-group-item">
-        <div>{{album.name}} ({{album.year}})</div>
+         class="list-group-item col-md-5 left">
+        <div>{{album.name}} <span ng-show="album.year != null">({{album.year}})</span></div>
         <blockquote ng-show="album.artist != null">{{album.artist}}</blockquote>
         <div class="list-group">Genres: <span ng-repeat="genre in album.genres" class="list-group-item">{{genre}}</span>
         </div>
@@ -66,6 +66,7 @@
             </fieldset>
         </form>
     </div>
+    <div class="clear"></div>
 </div>
 
 <div class="clear"></div>

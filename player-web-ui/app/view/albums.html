@@ -1,7 +1,29 @@
 <p>Albums page TBD</p>
 
 <div>
-    <div ng-repeat="album in albums" class="list-group-item">
+    <div>
+        <h4>Filter</h4>
+        <fieldset class="form-group">
+                <textarea ng-model="filterOptions.album" class="form-control"
+                          placeholder="Write a name of album..." title="Name"></textarea>
+        </fieldset>
+        <fieldset class="form-group">
+            <input ng-model="filterOptions.yearFrom" type="number" class="form-control" placeholder="From"
+                   title="Year" min="1900" max="3000"/>
+            <input ng-model="filterOptions.yearTo" type="number" class="form-control" placeholder="To"
+                   title="Year" min="1900" max="3000"/>
+        </fieldset>
+        <fieldset class="form-group">
+            <oi-multiselect ng-options="item for item in artists"
+                            ng-model="filterOptions.artist" placeholder="Write a name of artist..."></oi-multiselect>
+        </fieldset>
+        <fieldset class="form-group">
+            <oi-multiselect ng-options="item for item in genres"
+                            ng-model="filterOptions.genres" multiple placeholder="Write a genre..."></oi-multiselect>
+        </fieldset>
+    </div>
+    <div ng-repeat="album in albums | albumFilter:filterOptions"
+         class="list-group-item">
         <div>{{album.name}} ({{album.year}})</div>
         <blockquote ng-show="album.artist != null">{{album.artist}}</blockquote>
         <div class="list-group">Genres: <span ng-repeat="genre in album.genres" class="list-group-item">{{genre}}</span>
@@ -15,7 +37,8 @@
             </ul>
         </fieldset>
 
-        <form name="editForm" ng-submit="editForm.$valid && editAlbum(album)" ng-show="isEdit(album.id) " novalidate>
+        <form name="editForm" ng-enter ng-submit="editForm.$valid && editAlbum(album)" ng-show="isEdit(album.id) "
+              novalidate>
             <h4>Edit</h4>
             <fieldset class="form-group">
                 <textarea ng-model="album.name" class="form-control"
@@ -26,12 +49,14 @@
                        title="Year"/>
             </fieldset>
             <fieldset class="form-group">
-                <input ng-model="album.artist" type="text" class="form-control"
-                       placeholder="Write a name of artist..." title="Year"/>
+                <oi-multiselect ng-options="item for item in artists"
+                                oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
+                                ng-model="album.artist" placeholder="Write a name of artist..."></oi-multiselect>
             </fieldset>
             <fieldset class="form-group">
-                <input ng-list ng-model="album.genres" type="text" class="form-control"
-                       placeholder="Write a genre..." title="Year"/>
+                <oi-multiselect ng-options="item for item in genres"
+                                oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
+                                ng-model="album.genres" multiple placeholder="Write a genre..."></oi-multiselect>
             </fieldset>
             <fieldset class="form-group">
                 <ul class="nav nav-pills pull-right">
@@ -49,7 +74,7 @@
     <input type="button" ng-click="isAdd(true)" class="btn btn-primary pull-left" value="Add"/>
 </fieldset>
 
-<form name="addForm" ng-submit="addForm.$valid && addAlbum(newAlbum)" ng-show="add" novalidate>
+<form name="addForm" ng-enter ng-submit="addForm.$valid && addAlbum(newAlbum)" ng-show="add" novalidate>
     <h4>Add</h4>
     <fieldset class="form-group">
                 <textarea ng-model="newAlbum.name" class="form-control"
@@ -60,12 +85,14 @@
                title="Year"/>
     </fieldset>
     <fieldset class="form-group">
-        <input ng-model="newAlbum.artist" type="text" class="form-control"
-               placeholder="Write a name of artist..." title="Year"/>
+        <oi-multiselect ng-options="item for item in artists"
+                        oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
+                        ng-model="newAlbum.artist" placeholder="Write a name of artist..."></oi-multiselect>
     </fieldset>
     <fieldset class="form-group">
-        <input ng-list ng-model="newAlbum.genres" type="text" class="form-control"
-               placeholder="Write a genre..." title="Year"/>
+        <oi-multiselect ng-options="item for item in genres"
+                        oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
+                        ng-model="album.genres" multiple placeholder="Write a genre..."></oi-multiselect>
     </fieldset>
     <fieldset class="form-group">
         <ul class="nav nav-pills pull-right">

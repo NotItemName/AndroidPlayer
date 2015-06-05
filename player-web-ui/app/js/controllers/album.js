@@ -11,10 +11,33 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
     $scope.add = false;
     $scope.albums = {};
 
+    $scope.genres = [];
+    $scope.artists = [];
+
+    $scope.filterOptions = {album: '', yearFrom: '',yearTo:'', artist: '', genres: []};
+
+    $scope.findGenres = function () {
+        Rest.getAll("genre").$promise.then(function (res) {
+            var data = res.genres;
+            for (var i in data) {
+                $scope.genres.push(data[i].name);
+            }
+        });
+    };
+
+    $scope.findArtists = function () {
+        Rest.getAll("artist").$promise.then(function (res) {
+            var data = res.artists;
+            for (var i in data) {
+                $scope.artists.push(data[i].name);
+            }
+        });
+    };
+
     $scope.getAllAlbums = function () {
         Rest.getAll(type).$promise.then(function (res) {
             $scope.albums = res.albums;
-        })
+        });
     };
 
     $scope.isEdit = function (id) {
@@ -51,6 +74,7 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
     };
 
     $scope.addAlbum = function (album) {
+        album.genres = $scope.genres;
         Rest.add(type, album).$promise.then(
             function (value) {
                 album.id = value.id;
@@ -88,4 +112,16 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
     };
 
     $scope.getAllAlbums();
+    $scope.findGenres();
+    $scope.findArtists();
 }]);
+
+app.directive('ngEnter', function () {
+    return function (scope, element) {
+        element.bind("keydown keypress", function (event) {
+            if (event.which === 13) {
+                event.preventDefault();
+            }
+        });
+    };
+});

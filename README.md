@@ -1,7 +1,7 @@
-### AndroidPlayer
+# AndroidPlayer
 ##Albums:
 
-#Get all albums 
+###Get all albums 
 	Method: GET
 	Endpoint: /player-server/album/get
 	Response: 200 OK
@@ -26,7 +26,7 @@
 		]
 	}
 	
-#Get album by id
+###Get album by id
 	Method: GET
 	Endpoint: /player-server/album/get/1
 	Response: 200 OK
@@ -39,7 +39,7 @@
 		"genres":["Grunge","Alternative"]
 	}
 	
-#Add album
+###Add album
 	Method: POST
 	Endpoint: /player-server/album/add
 	Request body:
@@ -59,7 +59,7 @@
 		"genres":["Grunge","Alternative"]
 	}
 	
-#Update album
+###Update album
 	Method: PUT
 	Endpoint: /player-server/album/update/1
 	Request body:
@@ -78,7 +78,7 @@
 	
 ##Artist
 
-#Get all artists
+###Get all artists
 	Method: GET
 	Endpoint: /player-server/artist/get
 	Response: 200 OK
@@ -101,7 +101,7 @@
 		]
 	}
 	
-#Get artist by id
+###Get artist by id
 	Method: GET
 	Endpoint: /player-server/artist/get/1
 	Response: 200 OK
@@ -111,7 +111,7 @@
 		"name":"Nirvana"
 	}
 	
-#Add artist
+###Add artist
 	Method: POST
 	Endpoint: /player-server/artist/add
 	Request body:
@@ -125,7 +125,7 @@
 		"name":"Greenskeeper"
 	}
 	
-#Update artist
+###Update artist
 	Method: PUT
 	Endpoint: /player-server/artist/update/7
 	Request body:
@@ -141,7 +141,7 @@
 	
 ##Genre
 
-#Get all genres
+###Get all genres
 	Method: GET
 	Endpoint: /player-server/genre/get
 	Response: 200 OK
@@ -164,7 +164,7 @@
 		]
 	}
 	
-#Get genre by id
+###Get genre by id
 	Method: GET
 	Endpoint: /player-server/genre/get/1
 	Response: 200 OK
@@ -174,7 +174,7 @@
 		"name":"Grunge"
 	}
 	
-#Add genre
+###Add genre
 	Method: POST
 	Endpoint: /player-server/genre/add
 	Request body:
@@ -188,7 +188,7 @@
 		"name":"Blues Rock"
 	}
 	
-#Update genre
+###Update genre
 	Method: PUT
 	Endpoint: /player-server/artist/update/17
 	Request body:
@@ -197,14 +197,14 @@
 	}
 	Response: 204 No Content
 	
-#Delete genre
+###Delete genre
 	Method: DELETE
 	Endpoint: /player-server/genre/delete/17
 	Response: 204 No Content
 	
 ##Song
     
-#Get all songs
+###Get all songs
     Method: GET
     Endpoint: /player-server/song/get
     Response: 200 OK
@@ -233,7 +233,7 @@
     	]
     }
     	
-#Get song by id
+###Get song by id
     Method: GET
     Endpoint: /player-server/song/get/1
     Response: 200 OK
@@ -248,7 +248,7 @@
 		"track_number":1
     }
     	
-#Add song
+###Add song
     Method: POST
     Endpoint: /player-server/song/add
     Request body: 
@@ -265,7 +265,7 @@
 		"track_number":1
     }
     	
-#Stream song
+###Stream song
 	Method: GET
     Endpoint: /player-server/song/stream/1
     Request body: 

@@ -1,5 +1,8 @@
 package com.player.service.songs;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
+
 import com.google.common.collect.Lists;
 import com.player.entity.Album;
 import com.player.entity.Artist;
@@ -19,9 +22,6 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 /**
  * @author Николай
@@ -58,12 +58,13 @@ public class SongServiceImpl implements SongService {
         Artist artist = convertArtistFromMetadata(audioMetadata);
         song.setArtist(artistService.addArtist(artist));
 
-        Album album = convertAlbumFromMetadata(audioMetadata);
-        album.setArtist(artist);
-        song.setAlbum(albumService.addAlbum(album));
 
         Set<Genre> genres = convertGenreFromMetadata(audioMetadata);
+
+        Album album = convertAlbumFromMetadata(audioMetadata);
+        album.setArtist(artist);
         album.setGenres(genreService.addGenres(genres));
+        song.setAlbum(albumService.addAlbum(album));
 
         song.setFileName(fileName);
 

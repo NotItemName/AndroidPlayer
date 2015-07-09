@@ -7,14 +7,19 @@ var app = angular.module('player.web.controllers.album', []);
 app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scope, Rest, ngDialog) {
     var type = 'album';
     $scope.editAlbumId = 0;
-    $scope.newAlbum = {};
+    $scope.newAlbum = {genres:[]};
     $scope.add = false;
     $scope.albums = {};
 
     $scope.genres = [];
+    $scope.genreSearchText = null;
+    $scope.selectedGenre = null;
+    $scope.newSelectedGenre = null;
+    $scope.newGenreSearchText = null;
     $scope.artists = [];
+    $scope.artistSearchText = null;
 
-    $scope.filterOptions = {album: '', yearFrom: '',yearTo:'', artist: '', genres: []};
+    $scope.filterOptions = {album: '', yearFrom: '', yearTo: '', artist: '', genres: []};
 
     $scope.findGenres = function () {
         Rest.getAll("genre").$promise.then(function (res) {
@@ -24,6 +29,23 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
             }
         });
     };
+
+    $scope.autocompliteQuery = function (list, query) {
+        var result = query ? list.filter(createFilterFor(query)) : [];
+        if (result.length === 0) {
+            result.push(query);
+        }
+        return result;
+    };
+
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(artist) {
+            return (angular.lowercase(artist).indexOf(lowercaseQuery) === 0);
+        };
+
+    }
 
     $scope.findArtists = function () {
         Rest.getAll("artist").$promise.then(function (res) {
@@ -56,7 +78,7 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
         $scope.editAlbumId = 0;
     };
 
-    $scope.editAlbum = function (album) {
+    $scope.editRequest = function (album) {
         Rest.update(type, album.id, album);
         $scope.editAlbumId = 0;
     };
@@ -74,7 +96,6 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
     };
 
     $scope.addAlbum = function (album) {
-        album.genres = $scope.genres;
         Rest.add(type, album).$promise.then(
             function (value) {
                 album.id = value.id;
@@ -93,7 +114,7 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
 
     };
 
-    $scope.deleteAlbum = function (id) {
+    $scope.deleteRequest = function (id) {
         Rest.remove(type, id).$promise.then(
             function (value) {
                 for (var i in $scope.albums) {
@@ -115,13 +136,3 @@ app.controller('AlbumController', ['$scope', 'Rest', 'ngDialog', function ($scop
     $scope.findGenres();
     $scope.findArtists();
 }]);
-
-app.directive('ngEnter', function () {
-    return function (scope, element) {
-        element.bind("keydown keypress", function (event) {
-            if (event.which === 13) {
-                event.preventDefault();
-            }
-        });
-    };
-});

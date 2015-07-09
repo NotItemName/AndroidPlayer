@@ -30,6 +30,10 @@ public class AlbumConverter {
             album.setArtist(artist);
         }
         Set<Genre> genreSet = new HashSet<>();
+        List<String> genres = albumDto.getGenres();
+        if (genres == null) {
+            return album;
+        }
         for (String str : albumDto.getGenres()) {
             Genre genre = new Genre();
             genre.setName(str);

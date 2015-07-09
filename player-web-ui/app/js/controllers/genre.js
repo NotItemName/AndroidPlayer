@@ -27,7 +27,7 @@ app.controller('GenreController', ['$scope', 'Rest', 'ngDialog', function ($scop
         return $scope.editGenreId === id;
     };
 
-    $scope.editGenre = function (genre) {
+    $scope.editRequest = function (genre) {
         Rest.update(type, genre.id, genre);
         $scope.editGenreId = 0;
     };
@@ -69,7 +69,7 @@ app.controller('GenreController', ['$scope', 'Rest', 'ngDialog', function ($scop
 
     };
 
-    $scope.deleteGenre = function (id) {
+    $scope.deleteRequest = function (id) {
         Rest.remove(type, id).$promise.then(
             function (value) {
                 for (var i in $scope.genres) {

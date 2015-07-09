@@ -1,105 +1,138 @@
 <p>Albums page TBD</p>
 
-<div>
-    <div ng-show="false">
-        <h4>Filter</h4>
-        <fieldset class="form-group">
+
+<div ng-show="false">
+    <h4>Filter</h4>
+    <fieldset class="form-group">
                 <textarea ng-model="filterOptions.album" class="form-control"
                           placeholder="Write a name of album..." title="Name"></textarea>
-        </fieldset>
-        <fieldset class="form-group">
-            <input ng-model="filterOptions.yearFrom" type="number" class="form-control" placeholder="From"
-                   title="Year" min="1900" max="3000"/>
-            <input ng-model="filterOptions.yearTo" type="number" class="form-control" placeholder="To"
-                   title="Year" min="1900" max="3000"/>
-        </fieldset>
-        <fieldset class="form-group">
-            <oi-multiselect ng-options="item for item in artists"
-                            ng-model="filterOptions.artist" placeholder="Write a name of artist..."></oi-multiselect>
-        </fieldset>
-        <fieldset class="form-group">
-            <oi-multiselect ng-options="item for item in genres"
-                            ng-model="filterOptions.genres" multiple placeholder="Write a genre..."></oi-multiselect>
-        </fieldset>
-    </div>
-    <div ng-repeat="album in albums | albumFilter:filterOptions"
-         class="list-group-item col-md-5 left">
-        <div>{{album.name}} <span ng-show="album.year != null">({{album.year}})</span></div>
-        <blockquote ng-show="album.artist != null">{{album.artist}}</blockquote>
-        <div class="list-group">Genres: <span ng-repeat="genre in album.genres" class="list-group-item">{{genre}}</span>
-        </div>
-        <fieldset ng-hide="isEdit(album.id)">
-            <ul class="nav nav-pills pull-right">
-                <li><input type="button" ng-click="edit(album.id, album)" class="btn btn-primary pull-right"
-                           value="Edit"/></li>
-                <li><a class="btn" ng-click="deleteAlbum(album.id)" href><i class="glyphicon glyphicon-trash"></i></a>
-                </li>
-            </ul>
-        </fieldset>
-
-        <form name="editForm" ng-enter ng-submit="editForm.$valid && editAlbum(album)" ng-show="isEdit(album.id) "
-              novalidate>
-            <h4>Edit</h4>
-            <fieldset class="form-group">
-                <textarea ng-model="album.name" class="form-control"
-                          placeholder="Write a name of album..." title="Name"></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-                <input ng-model="album.year" type="number" class="form-control" placeholder="Year"
-                       title="Year"/>
-            </fieldset>
-            <fieldset class="form-group">
-                <oi-multiselect ng-options="item for item in artists"
-                                oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
-                                ng-model="album.artist" placeholder="Write a name of artist..."></oi-multiselect>
-            </fieldset>
-            <fieldset class="form-group">
-                <oi-multiselect ng-options="item for item in genres"
-                                oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
-                                ng-model="album.genres" multiple placeholder="Write a genre..."></oi-multiselect>
-            </fieldset>
-            <fieldset class="form-group">
-                <ul class="nav nav-pills pull-right">
-                    <li><input type="button" ng-click="cancelEdit()" class="btn btn-primary" value="Cancel"></li>
-                    <li><input type="submit" class="btn btn-primary" value="Edit"/></li>
-                </ul>
-            </fieldset>
-        </form>
-    </div>
-    <div class="clear"></div>
+    </fieldset>
+    <fieldset class="form-group">
+        <input ng-model="filterOptions.yearFrom" type="number" class="form-control" placeholder="From"
+               title="Year" min="1900" max="3000"/>
+        <input ng-model="filterOptions.yearTo" type="number" class="form-control" placeholder="To"
+               title="Year" min="1900" max="3000"/>
+    </fieldset>
+    <fieldset class="form-group">
+        <oi-multiselect ng-options="item for item in artists"
+                        ng-model="filterOptions.artist" placeholder="Write a name of artist..."></oi-multiselect>
+    </fieldset>
+    <fieldset class="form-group">
+        <oi-multiselect ng-options="item for item in genres"
+                        ng-model="filterOptions.genres" multiple placeholder="Write a genre..."></oi-multiselect>
+    </fieldset>
 </div>
 
 <div class="clear"></div>
 
-<fieldset ng-hide="add">
-    <input type="button" ng-click="isAdd(true)" class="btn btn-primary pull-left" value="Add"/>
-</fieldset>
+<md-grid-list
+        md-cols-gt-md="20"
+        md-row-height-gt-md="1:1" md-row-height="1:1"
+        md-gutter="12px" md-gutter-gt-sm="8px">
+    <md-grid-tile id="{{album.id}}" class="gray" ng-repeat="album in albums  | albumFilter:filterOptions"
+                  md-rowspan="6" md-colspan="6">
 
-<form name="addForm" ng-enter ng-submit="addForm.$valid && addAlbum(newAlbum)" ng-show="add" novalidate>
-    <h4>Add</h4>
-    <fieldset class="form-group">
-                <textarea ng-model="newAlbum.name" class="form-control"
-                          placeholder="Write a name of album..." title="Name"></textarea>
-    </fieldset>
-    <fieldset class="form-group">
-        <input ng-model="newAlbum.year" type="number" class="form-control" placeholder="Year"
-               title="Year"/>
-    </fieldset>
-    <fieldset class="form-group">
-        <oi-multiselect ng-options="item for item in artists"
-                        oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
-                        ng-model="newAlbum.artist" placeholder="Write a name of artist..."></oi-multiselect>
-    </fieldset>
-    <fieldset class="form-group">
-        <oi-multiselect ng-options="item for item in genres"
-                        oi-multiselect-options="{newItem: true, saveTrigger:'enter, backslash, blur'}"
-                        ng-model="album.genres" multiple placeholder="Write a genre..."></oi-multiselect>
-    </fieldset>
-    <fieldset class="form-group">
-        <ul class="nav nav-pills pull-right">
-            <li><input type="button" ng-click="cancelAdd()" class="btn btn-primary pull-right" value="Cancel"></li>
-            <li><input type="submit" class="btn btn-primary pull-right" value="Add"/></li>
-        </ul>
-    </fieldset>
-</form>
+        <section ng-hide="isEdit(album.id)">
+            <div>{{album.name}} <span ng-show="album.year != null">({{album.year}})</span></div>
+            <blockquote ng-show="album.artist != null">{{album.artist}}</blockquote>
+            <span>Genres: </span>
+            <md-chips ng-model="album.genres" readonly="true"></md-chips>
+        </section>
+
+        <form name="editForm" ng-enter ng-submit="editForm.$valid && editAlbum(album)" ng-show="isEdit(album.id) "
+              novalidate>
+            <md-input-container>
+                <label>Album</label>
+                <input required name="albumName" ng-model="album.name">
+
+                <div ng-messages="editForm.albumName.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Year</label>
+                <input type="number" ng-model="album.year">
+            </md-input-container>
+            <md-autocomplete md-selected-item="album.artist" md-search-text="artistSearchText"
+                             md-item-text="item" md-items="item in autocompliteQuery(artists, artistSearchText)">
+                <md-item-template>
+                    <span md-highlight-text="artistSearchText" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+            </md-autocomplete>
+
+            <md-chips ng-model="album.genres" md-autocomplete-snap>
+                <md-autocomplete
+                        md-selected-item="selectedGenre"
+                        md-search-text="genreSearchText"
+                        md-items="item in autocompliteQuery(genres,genreSearchText)"
+                        md-item-text="item">
+                    <span md-highlight-text="genreSearchText">{{item}}</span>
+                </md-autocomplete>
+            </md-chips>
+        </form>
+
+        <md-grid-tile-footer layout-align="center center">
+            <ng-grid-tile-footer object="album"></ng-grid-tile-footer>
+        </md-grid-tile-footer>
+    </md-grid-tile>
+    <md-grid-tile class="gray" ng-show="add" md-rowspan="6" md-colspan="6">
+        <form name="addForm">
+            <md-input-container>
+                <label>Album</label>
+                <input required name="newAlbumName" ng-model="newAlbum.name">
+
+                <div ng-messages="addForm.newAlbumName.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Year</label>
+                <input type="number" ng-model="newAlbum.year">
+            </md-input-container>
+            <md-autocomplete md-selected-item="newAlbum.artist" md-search-text="artistSearchText"
+                             md-item-text="item" md-items="item in autocompliteQuery(artists, artistSearchText)">
+                <md-item-template>
+                    <span md-highlight-text="artistSearchText" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No matches found for "{{artistSearchText}}".
+                </md-not-found>
+            </md-autocomplete>
+
+            <md-chips ng-model="newAlbum.genres" md-autocomplete-snap>
+                <md-autocomplete
+                        md-selected-item="newSelectedGenre"
+                        md-search-text="newGenreSearchText"
+                        md-items="item in autocompliteQuery(genres,newGenreSearchText)"
+                        md-item-text="item">
+                    <span md-highlight-text="newGenreSearchText">{{item}}</span>
+                </md-autocomplete>
+            </md-chips>
+
+        </form>
+        <md-grid-tile-footer>
+            <md-button class="md-fab md-mini" ng-click="cancelAdd()">
+                <i class="material-icons">clear</i>
+            </md-button>
+
+            <md-button class="md-fab md-mini" ng-click="addAlbum(newAlbum)">
+                <i class="material-icons">done</i>
+            </md-button>
+        </md-grid-tile-footer>
+    </md-grid-tile>
+</md-grid-list>
+</div>
+
+
+<div class="clear"></div>
+<section ng-hide="add">
+    <md-button class="md-fab md-mini" ng-click="isAdd(true)">
+        <i class="material-icons">add</i>
+    </md-button>
+</section>
+<section ng-show="add">
+    <md-button class="md-fab md-mini" ng-click="cancelAdd()">
+        <i class="material-icons">clear</i>
+    </md-button>
+</section>
 

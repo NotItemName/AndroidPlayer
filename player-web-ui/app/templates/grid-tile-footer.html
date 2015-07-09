@@ -1,0 +1,18 @@
+<section ng-hide="$parent.isEdit(object.id)">
+    <md-button class="md-fab md-mini" ng-click="$parent.edit(object.id)">
+        <i class="material-icons">mode_edit</i>
+    </md-button>
+
+    <md-button class="md-fab md-mini" ng-click="$parent.deleteRequest(object.id)">
+        <i class="material-icons">delete</i>
+    </md-button>
+</section>
+<section ng-show="$parent.isEdit(object.id)">
+    <md-button class="md-fab md-mini" ng-click="$parent.cancelEdit()">
+        <i class="material-icons">clear</i>
+    </md-button>
+
+    <md-button class="md-fab md-mini" ng-click="$parent.editRequest(object)">
+        <i class="material-icons">done</i>
+    </md-button>
+</section>

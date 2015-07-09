@@ -1,49 +1,64 @@
 <p>Genres page TBD</p>
 
 <div>
-    <div ng-repeat="genre in genres" class="list-group-item">
-        <div>{{genre.name}}</div>
-        <fieldset ng-hide="isEdit(genre.id)">
-            <ul class="nav nav-pills pull-right">
-                <li><input type="button" ng-click="edit(genre.id, genre)" class="btn btn-primary pull-right"
-                           value="Edit"/></li>
-                <li><a class="btn" ng-click="deleteGenre(genre.id)" href><i class="glyphicon glyphicon-trash"></i></a>
-                </li>
-            </ul>
-        </fieldset>
+    <md-grid-list
+            md-cols-gt-md="8"
+            md-row-height-gt-md="1:1" md-row-height="2:2"
+            md-gutter="12px" md-gutter-gt-sm="8px">
+        <md-grid-tile class="gray" ng-repeat="genre in genres">
+            <h3 ng-hide="isEdit(genre.id)" class="md-primary">{{genre.name}}</h3>
 
-        <form name="editForm" ng-submit="editForm.$valid && editGenre(genre)" ng-show="isEdit(genre.id) " novalidate>
-            <h4>Edit</h4>
-            <fieldset class="form-group">
-                <textarea ng-model="genre.name" class="form-control"
-                          placeholder="Write a name of genre..." title="Name"></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-                <ul class="nav nav-pills pull-right">
-                    <li><input type="button" ng-click="cancelEdit()" class="btn btn-primary" value="Cancel"></li>
-                    <li><input type="submit" class="btn btn-primary" value="Edit"/></li>
-                </ul>
-            </fieldset>
-        </form>
-    </div>
+            <form name="editForm" ng-show="isEdit(genre.id)">
+                <md-input-container>
+                    <input aria-label="genre" required name="genreName" ng-model="genre.name">
+
+                    <div ng-messages="editForm.genreName.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+            </form>
+
+            <md-grid-tile-footer layout-align="center center">
+                <ng-grid-tile-footer object="genre"></ng-grid-tile-footer>
+            </md-grid-tile-footer>
+        </md-grid-tile>
+        <md-grid-tile class="gray" ng-show="add">
+            <form name="addForm">
+                <md-input-container>
+                    <label>Genre</label>
+                    <input required name="genreName" ng-model="newGenre.name">
+
+                    <div ng-messages="addForm.genreName.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+
+            </form>
+            <md-grid-tile-footer>
+                <md-button class="md-fab md-mini" ng-click="cancelAdd()">
+                    <i class="material-icons">clear</i>
+                </md-button>
+
+                <md-button class="md-fab md-mini" ng-click="addGenre(newGenre)">
+                    <i class="material-icons">done</i>
+                </md-button>
+            </md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
 </div>
 
+
 <div class="clear"></div>
+<section ng-hide="add">
+    <md-button class="md-fab md-mini" ng-click="isAdd(true)">
+        <i class="material-icons">add</i>
+    </md-button>
+</section>
+<section ng-show="add">
+    <md-button class="md-fab md-mini" ng-click="cancelAdd()">
+        <i class="material-icons">clear</i>
+    </md-button>
+</section>
 
-<fieldset ng-hide="add">
-    <input type="button" ng-click="isAdd(true)" class="btn btn-primary pull-left" value="Add"/>
-</fieldset>
 
-<form name="addForm" ng-submit="addForm.$valid && addGenre(newGenre)" ng-show="add" novalidate>
-    <h4>Add</h4>
-    <fieldset class="form-group">
-                <textarea ng-model="newGenre.name" class="form-control"
-                          placeholder="Write a name of genre..." title="Name"></textarea>
-    </fieldset>
-    <fieldset class="form-group">
-        <ul class="nav nav-pills pull-right">
-            <li><input type="button" ng-click="cancelAdd()" class="btn btn-primary pull-right" value="Cancel"></li>
-            <li><input type="submit" class="btn btn-primary pull-right" value="Add"/></li>
-        </ul>
-    </fieldset>
-</form>
+

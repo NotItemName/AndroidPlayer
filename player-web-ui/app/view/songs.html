@@ -1,5 +1,11 @@
 <p>Songs page TBD</p>
 
+<div>
+    <input type="file" ng-click="setFile(this)">
+    <br />
+    <button ng-click="uploadFileToUrl()">Upload</button>
+</div>
+
 <div ng-repeat="song in songs">
     {{song.name}} ({{song.year}})
     <blockquote ng-show="song.artist_name != null">{{song.artist_name}}</blockquote>

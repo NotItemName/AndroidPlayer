@@ -27,7 +27,7 @@ app.controller('ArtistController', ['$scope', 'Rest', function ($scope, Rest) {
         return $scope.editArtistId === id;
     };
 
-    $scope.editArtist = function (artist) {
+    $scope.editRequest = function (artist) {
         Rest.update(type, artist.id, artist);
         $scope.editArtistId = 0;
     };
@@ -69,7 +69,7 @@ app.controller('ArtistController', ['$scope', 'Rest', function ($scope, Rest) {
 
     };
 
-    $scope.deleteArtist = function (id) {
+    $scope.deleteRequest = function (id) {
         Rest.remove(type, id).$promise.then(
             function (value) {
                 for (var i in $scope.artists) {

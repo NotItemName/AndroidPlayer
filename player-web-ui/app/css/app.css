@@ -10,3 +10,17 @@
 .ng-valid.ng-dirty {
     border-color: green
 }
+
+md-grid-list {
+    margin: 8px; }
+
+.gray {
+    background: rgba(244,67,54,0.10); }
+
+md-grid-tile {
+    color: rgba(0, 0, 0, 0.50);
+}
+
+i.material-icons {
+    vertical-align: middle;
+}

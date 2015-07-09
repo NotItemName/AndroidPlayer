@@ -11,54 +11,31 @@
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <div ng-controller="TabController" layout="column" style="height: 100%" class="sidenavdemoBasicUsage" ng-app="playerWeb">
-        <section layout="row" flex="">
-            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-                        md-is-locked-open="true">
-                <md-toolbar class="md-theme-indigo">
-                    <h1 class="md-toolbar-tools">Sidenav Left</h1>
-                </md-toolbar>
-                <md-content layout-padding="">
-                    <ul class="nav navbar-nav">
-                        <li ng-class="{active:isSet(1)}"><a href="#/songs" ng-click="setTab(1)">Songs</a></li>
-                        <li ng-class="{active:isSet(2)}"><a href="#/artists" ng-click="setTab(2)">Artists</a></li>
-                        <li ng-class="{active:isSet(3)}"><a href="#/genres" ng-click="setTab(3)">Genres</a></li>
-                        <li ng-class="{active:isSet(4)}"><a href="#/albums" ng-click="setTab(4)">Albums</a></li>
-                    </ul>
-                </md-content>
-
-            </md-sidenav>
-
-            <md-content flex="" layout-padding="">
-                <div ng-view></div>
-                <div flex=""></div>
+<div ng-controller="TabController" layout="column" style="height: 100%" class="sidenavdemoBasicUsage"
+     ng-app="playerWeb">
+    <section layout="row" flex="">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                    md-is-locked-open="true">
+            <md-toolbar>
+                <h1 class="md-toolbar-tools">Administrative page</h1>
+            </md-toolbar>
+            <md-content flex>
+                <md-button style="width: 100%" class="md-primary" ng-click="setTab(1,'/songs')">Songs</md-button>
+                <md-button style="width: 100%" class="md-primary" ng-click="setTab(2,'/artists')">Artists</md-button>
+                <md-button style="width: 100%" class="md-primary" ng-click="setTab(3,'/genres')">Genres</md-button>
+                <md-button style="width: 100%" class="md-primary" ng-click="setTab(4,'/albums')">Albums</md-button>
             </md-content>
-        </section>
+        </md-sidenav>
 
-    </div>
-
-    <!--<nav class="navbar navbar-default">-->
-    <!--<div class="container-fluid">-->
-    <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-    <!--<div class="navbar-header">-->
-    <!--<a class="navbar-brand" href="#">Brand</a>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-    <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-
-    <!--<form class="navbar-form navbar-right" role="search">-->
-    <!--<div class="form-group">-->
-    <!--<input type="text" class="form-control" placeholder="Search">-->
-    <!--</div>-->
-    <!--<button type="submit" class="btn btn-default">Submit</button>-->
-    <!--</form>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</nav>-->
-
+        <md-content flex="" layout-padding="">
+            <div ng-view></div>
+            <div flex=""></div>
+        </md-content>
+    </section>
+</div>
 
 </div>
 
@@ -69,6 +46,7 @@
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-material/angular-material.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
 <script src="bower_components/ngDialog/js/ngDialog.js"></script>
 <script src="bower_components/oi.multiselect/dist/multiselect-tpls.js"></script>
 <script src="js/app.js"></script>

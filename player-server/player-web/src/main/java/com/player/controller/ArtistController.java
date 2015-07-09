@@ -1,5 +1,8 @@
 package com.player.controller;
 
+import static com.player.convertors.ArtistConverter.convert;
+import static com.player.convertors.ArtistConverter.convertList;
+
 import com.player.entity.Artist;
 import com.player.model.artists.ArtistDto;
 import com.player.model.artists.Artists;
@@ -8,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import static com.player.convertors.ArtistConverter.convert;
-import static com.player.convertors.ArtistConverter.convertList;
 
 /**
  * @author Mykola_Zalyayev
@@ -24,6 +24,7 @@ public class ArtistController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ArtistDto addArtist(@RequestBody ArtistDto artistDto) {
         Artist artist = artistService.addArtist(convert(artistDto));
         return convert(artist);
